@@ -94,15 +94,6 @@ export default function Hero({ onOpenCaseStudy }) {
             <Download size={18} />
             <span>Resume (PDF)</span>
           </a>
-          <a
-            href="/Zoe_Solaris_IxD_Portfolio.pdf"
-            download
-            className="btn btn-frutiger-outline btn-lg"
-            title="Download the full 25-page slide deck portfolio"
-          >
-            <FileText size={18} />
-            <span>Original 25p Deck</span>
-          </a>
         </div>
 
       </div>

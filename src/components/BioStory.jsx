@@ -73,14 +73,6 @@ export default function BioStory() {
               <Download size={17} />
               <span>Download Resume (PDF)</span>
             </a>
-            <a 
-              href="/Zoe_Solaris_IxD_Portfolio.pdf" 
-              download 
-              className="btn btn-outline"
-            >
-              <FileText size={17} />
-              <span>Original 25-Page Slide Deck</span>
-            </a>
           </div>
         </div>
 

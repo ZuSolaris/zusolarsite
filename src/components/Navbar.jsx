@@ -101,14 +101,6 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
               <Download size={16} />
               <span>Download Resume</span>
             </a>
-            <a 
-              href="/Zoe_Solaris_IxD_Portfolio.pdf" 
-              download 
-              className="btn btn-outline"
-            >
-              <FileText size={16} />
-              <span>Original PDF Portfolio</span>
-            </a>
           </div>
         </div>
       )}

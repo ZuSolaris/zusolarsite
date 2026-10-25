@@ -215,15 +215,17 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
           <button onClick={onClose} className="btn btn-secondary">
             Close Case Study
           </button>
-          <a 
-            href="/Zoe_Solaris_IxD_Portfolio.pdf" 
-            target="_blank" 
-            rel="noreferrer"
-            className="btn btn-outline"
-          >
-            <ExternalLink size={16} />
-            <span>View in Original 25p Deck</span>
-          </a>
+          {project.id === 'husk-e' && (
+            <a 
+              href="/husk_e_deck.pdf" 
+              target="_blank" 
+              rel="noreferrer"
+              className="btn btn-outline"
+            >
+              <ExternalLink size={16} />
+              <span>View Hardware Deck (PDF)</span>
+            </a>
+          )}
         </div>
 
       </div>

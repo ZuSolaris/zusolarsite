@@ -76,9 +76,9 @@ export default function Footer() {
                 <Download size={14} />
                 <span>Resume (PDF)</span>
               </a>
-              <a href="/Zoe_Solaris_IxD_Portfolio.pdf" download className="footer-link">
+              <a href="/husk_e_deck.pdf" download className="footer-link">
                 <FileText size={14} />
-                <span>25p Portfolio Slide Deck</span>
+                <span>HUSK-E Hardware Deck (PDF)</span>
               </a>
             </div>
 

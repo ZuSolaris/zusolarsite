@@ -180,11 +180,11 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
       gl.ARRAY_BUFFER,
       new Float32Array([
         -1.0, -1.0,
-         1.0, -1.0,
-        -1.0,  1.0,
-        -1.0,  1.0,
-         1.0, -1.0,
-         1.0,  1.0,
+        1.0, -1.0,
+        -1.0, 1.0,
+        -1.0, 1.0,
+        1.0, -1.0,
+        1.0, 1.0,
       ]),
       gl.STATIC_DRAW
     );
