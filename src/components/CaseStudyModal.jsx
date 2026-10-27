@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { X, Award, ExternalLink, Calendar, Tag, CheckCircle2, Quote, ArrowLeft, ArrowRight, ZoomIn } from 'lucide-react';
+import { X, Calendar, CheckCircle2, Quote, ArrowLeft, ArrowRight, ZoomIn, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 
-export default function CaseStudyModal({ project, onClose, onSelectNext }) {
+export default function CaseStudyModal({ project, projects = [], onSelectProject, onClose }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   // Close on Escape key
@@ -25,12 +25,24 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
 
   if (!project) return null;
 
+  const currentIndex = projects.findIndex(p => p.id === project.id);
+  const hasProjectsList = projects && projects.length > 1 && currentIndex !== -1;
+  const prevProject = hasProjectsList ? (currentIndex > 0 ? projects[currentIndex - 1] : projects[projects.length - 1]) : null;
+  const nextProject = hasProjectsList ? (currentIndex < projects.length - 1 ? projects[currentIndex + 1] : projects[0]) : null;
+
+  const handleNavigate = (targetProject) => {
+    if (targetProject && onSelectProject) {
+      setSelectedImage(null);
+      onSelectProject(targetProject);
+    }
+  };
+
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label={project.title}>
       <div className="modal-container glass-panel" onClick={(e) => e.stopPropagation()}>
         
         {/* Sticky Header */}
-        <div className="modal-sticky-header">
+        <header className="modal-sticky-header">
           <div className="modal-header-meta">
             <span className="pill-badge subtle">{project.category}</span>
             {project.badge && (
@@ -43,10 +55,36 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
               {project.timeframe}
             </span>
           </div>
-          <button onClick={onClose} className="modal-close-btn" aria-label="Close Case Study">
-            <X size={20} />
-          </button>
-        </div>
+
+          <div className="modal-header-actions">
+            {hasProjectsList && (
+              <div className="modal-nav-arrows">
+                <button 
+                  onClick={() => handleNavigate(prevProject)}
+                  className="modal-icon-arrow"
+                  aria-label="Previous Case Study"
+                  title={`Previous: ${prevProject?.title}`}
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <span className="modal-nav-counter">
+                  {currentIndex + 1} / {projects.length}
+                </span>
+                <button 
+                  onClick={() => handleNavigate(nextProject)}
+                  className="modal-icon-arrow"
+                  aria-label="Next Case Study"
+                  title={`Next: ${nextProject?.title}`}
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            )}
+            <button onClick={onClose} className="modal-close-btn" aria-label="Close Case Study">
+              <X size={20} />
+            </button>
+          </div>
+        </header>
 
         {/* Modal Scroll Content */}
         <div className="modal-body-scroll">
@@ -58,19 +96,38 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
           </div>
 
           {/* Hero Image */}
-          <div className="modal-hero-wrapper" onClick={() => setSelectedImage(project.heroImage)}>
-            <img src={project.heroImage} alt={project.title} className="modal-hero-img" />
+          <div 
+            className="modal-hero-wrapper" 
+            onClick={() => setSelectedImage(project.heroImage)}
+            title="Click to view full schematic"
+          >
+            <img 
+              src={project.heroImage} 
+              alt={project.title} 
+              className="modal-hero-img" 
+              loading="eager"
+            />
             <div className="modal-hero-hint">
-              <ZoomIn size={16} />
-              <span>Click to enlarge diagram</span>
+              <ZoomIn size={15} />
+              <span>Enlarge Diagram</span>
             </div>
           </div>
 
+          {/* Executive Summary */}
+          {project.summary && (
+            <div className="modal-summary-box glass-panel">
+              <span className="modal-callout-label">Executive Brief & Systems Overview:</span>
+              <p className="modal-summary-text">{project.summary}</p>
+            </div>
+          )}
+
           {/* How Might We Callout */}
-          <div className="modal-callout-box">
-            <span className="modal-callout-label">How Might We:</span>
-            <p className="modal-callout-text">{project.howMightWe}</p>
-          </div>
+          {project.howMightWe && (
+            <div className="modal-callout-box">
+              <span className="modal-callout-label">How Might We:</span>
+              <p className="modal-callout-text">{project.howMightWe}</p>
+            </div>
+          )}
 
           {/* Jobs To Be Done (JTBD) Callout */}
           {project.jobsToBeDone && (
@@ -97,7 +154,7 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
             <div className="narrative-column glass-panel">
               <h4 className="narrative-heading">
                 <span className="dot error"></span>
-                The Core Problem & Context
+                <span>The Core Problem & Context</span>
               </h4>
               <p className="narrative-text">{project.problem}</p>
             </div>
@@ -105,7 +162,7 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
             <div className="narrative-column glass-panel">
               <h4 className="narrative-heading">
                 <span className="dot success"></span>
-                The Interaction & Systems Solution
+                <span>The Interaction & Systems Solution</span>
               </h4>
               <p className="narrative-text">{project.solution}</p>
             </div>
@@ -114,7 +171,10 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
           {/* Feasibility & BOM Analysis */}
           {project.feasibility && (
             <div className="modal-feasibility-section glass-panel">
-              <h4 className="section-mini-heading">Feasibility & Target BOM Analysis (&lt;$20 / Student)</h4>
+              <div className="feasibility-header">
+                <h4 className="section-mini-heading">Target BOM Analysis & Production Feasibility</h4>
+                <span className="pill-badge subtle">Under $20 Target</span>
+              </div>
               <div className="feasibility-stats-grid">
                 <div className="feasibility-card">
                   <span className="fea-label">Exact BOM per Unit</span>
@@ -140,7 +200,7 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
               <div className="pitfalls-grid">
                 {project.pitfalls.map((p, idx) => (
                   <div key={idx} className="pitfall-item">
-                    <span className="pitfall-risk">⚠️ {p.risk}</span>
+                    <span className="pitfall-risk">{p.risk}</span>
                     <p className="pitfall-detail">{p.detail}</p>
                   </div>
                 ))}
@@ -160,82 +220,121 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
           )}
 
           {/* Reflection Body */}
-          <div className="modal-reflection-section">
+          <div className="modal-reflection-section glass-panel">
             <h4 className="section-mini-heading">Interaction Design Reflection & Craft</h4>
             <p className="reflection-text">{project.reflection}</p>
           </div>
 
           {/* Image Gallery / Artifacts */}
-          <div className="modal-gallery-section">
-            <h4 className="section-mini-heading">Process Artifacts & Schematics</h4>
-            <div className="modal-gallery-grid">
-              {project.galleryImages.map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className="gallery-thumb-card" 
-                  onClick={() => setSelectedImage(img)}
-                  title="Click to view full resolution"
-                >
-                  <img src={img} alt={`${project.title} schematic ${idx + 1}`} loading="lazy" />
-                  <div className="gallery-thumb-overlay">
-                    <ZoomIn size={18} />
+          {project.galleryImages && project.galleryImages.length > 0 && (
+            <div className="modal-gallery-section">
+              <div className="gallery-header-row">
+                <h4 className="section-mini-heading">Process Artifacts & Schematics</h4>
+                <span className="gallery-count-badge">{project.galleryImages.length} Artifacts</span>
+              </div>
+              <div className="modal-gallery-grid">
+                {project.galleryImages.map((img, idx) => (
+                  <div 
+                    key={idx} 
+                    className="gallery-thumb-card" 
+                    onClick={() => setSelectedImage(img)}
+                    title="Click to view full resolution"
+                  >
+                    <img src={img} alt={`${project.title} schematic ${idx + 1}`} loading="lazy" />
+                    <div className="gallery-thumb-overlay">
+                      <ZoomIn size={18} />
+                      <span className="zoom-text">Enlarge</span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Deliverables Checklist */}
-          <div className="modal-deliverables-section glass-panel">
-            <h4 className="section-mini-heading">Key Project Deliverables</h4>
-            <div className="deliverables-grid">
-              {project.deliverables.map((item, idx) => (
-                <div key={idx} className="deliverable-item">
-                  <CheckCircle2 size={16} className="check-icon" />
-                  <span>{item}</span>
-                </div>
-              ))}
+          {project.deliverables && project.deliverables.length > 0 && (
+            <div className="modal-deliverables-section glass-panel">
+              <h4 className="section-mini-heading">Key Project Deliverables</h4>
+              <div className="deliverables-grid">
+                {project.deliverables.map((item, idx) => (
+                  <div key={idx} className="deliverable-item">
+                    <CheckCircle2 size={16} className="check-icon" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Tags */}
-          <div className="modal-tags-section">
-            <span className="tags-label">Keywords & Domains:</span>
-            <div className="modal-tags-list">
-              {project.tags.map(t => (
-                <span key={t} className="pill-badge subtle">{t}</span>
-              ))}
+          {project.tags && project.tags.length > 0 && (
+            <div className="modal-tags-section">
+              <span className="tags-label">Keywords & Domains:</span>
+              <div className="modal-tags-list">
+                {project.tags.map(t => (
+                  <span key={t} className="pill-badge subtle">{t}</span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
         </div>
 
         {/* Modal Footer */}
-        <div className="modal-footer">
-          <button onClick={onClose} className="btn btn-secondary">
-            Close Case Study
-          </button>
-          {project.id === 'husk-e' && (
-            <a 
-              href="/husk_e_deck.pdf" 
-              target="_blank" 
-              rel="noreferrer"
-              className="btn btn-outline"
-            >
-              <ExternalLink size={16} />
-              <span>View Hardware Deck (PDF)</span>
-            </a>
-          )}
-        </div>
+        <footer className="modal-footer">
+          <div className="modal-footer-nav">
+            {hasProjectsList && (
+              <>
+                <button 
+                  onClick={() => handleNavigate(prevProject)}
+                  className="btn btn-outline btn-sm modal-prev-btn"
+                  title={`Previous: ${prevProject?.title}`}
+                >
+                  <ArrowLeft size={14} />
+                  <span>Prev Case Study</span>
+                </button>
+                <button 
+                  onClick={() => handleNavigate(nextProject)}
+                  className="btn btn-outline btn-sm modal-next-btn"
+                  title={`Next: ${nextProject?.title}`}
+                >
+                  <span>Next Case Study</span>
+                  <ArrowRight size={14} />
+                </button>
+              </>
+            )}
+          </div>
+
+          <div className="modal-footer-actions">
+            {project.id === 'husk-e' && (
+              <a 
+                href="/husk_e_deck.pdf" 
+                target="_blank" 
+                rel="noreferrer"
+                className="btn btn-frutiger-solar btn-sm"
+              >
+                <FileText size={15} />
+                <span>View Hardware Deck (PDF)</span>
+              </a>
+            )}
+            <button onClick={onClose} className="btn btn-secondary btn-sm">
+              Close Case Study
+            </button>
+          </div>
+        </footer>
 
       </div>
 
       {/* Lightbox / High Res Image Zoom */}
       {selectedImage && (
-        <div className="lightbox-overlay" onClick={() => setSelectedImage(null)}>
+        <div className="lightbox-overlay" onClick={() => setSelectedImage(null)} role="dialog" aria-label="Expanded Image Preview">
           <div className="lightbox-container" onClick={(e) => e.stopPropagation()}>
-            <button className="lightbox-close-btn" onClick={() => setSelectedImage(null)}>
-              <X size={24} />
+            <button 
+              className="lightbox-close-btn" 
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close Lightbox"
+            >
+              <X size={20} />
             </button>
             <img src={selectedImage} alt="Expanded schematic" className="lightbox-image" />
           </div>
@@ -244,3 +343,4 @@ export default function CaseStudyModal({ project, onClose, onSelectNext }) {
     </div>
   );
 }
+

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Terminal, Volume2, Mic, Play, RefreshCw, Cpu, Activity, ShieldCheck, Sparkles, AlertTriangle, ArrowRight, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { Terminal, Volume2, Play, Cpu, Activity, ShieldCheck, AlertTriangle } from 'lucide-react';
 
 export default function IxDSandbox() {
   const [activeLab, setActiveLab] = useState('solari');

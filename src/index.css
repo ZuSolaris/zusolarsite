@@ -207,6 +207,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -215,8 +217,16 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
   transition: background-color var(--duration-normal) var(--ease-spring), color var(--duration-normal) var(--ease-spring);
   min-height: 100vh;
+}
+
+#root,
+.portfolio-app {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 h1,
@@ -303,13 +313,19 @@ pre {
   z-index: 1;
 }
 
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
 .section {
   padding: 6rem 0;
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 4rem 0;
+    padding: 3.5rem 0;
   }
 }
 

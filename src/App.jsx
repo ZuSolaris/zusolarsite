@@ -42,7 +42,7 @@ export default function App() {
 
       <main>
         {/* Hero Section with Zoe's Story & Accolades */}
-        <Hero onOpenCaseStudy={setSelectedProject} />
+        <Hero />
 
         {/* Featured Case Studies Grid with Category Filtering */}
         <ProjectGrid onSelectProject={setSelectedProject} />
@@ -61,6 +61,8 @@ export default function App() {
       {selectedProject && (
         <CaseStudyModal 
           project={selectedProject} 
+          projects={projects}
+          onSelectProject={setSelectedProject}
           onClose={() => setSelectedProject(null)} 
         />
       )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Sun, Moon, FileText, Download, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Sun, Moon, Download, Menu, X, ArrowUpRight } from 'lucide-react';
 
 export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
   const [scrolled, setScrolled] = useState(false);
@@ -47,7 +47,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
             </button>
           </div>
 
-          <div className="button-socket">
+          <div className="button-socket desktop-only-socket">
             <a 
               href="/Zoe_Solaris_Resume.pdf" 
               download 
@@ -59,7 +59,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
             </a>
           </div>
 
-          <div className="button-socket">
+          <div className="button-socket desktop-only-socket">
             <a 
               href="#contact" 
               className="btn btn-frutiger-solar btn-sm btn-socket-inner"
@@ -82,7 +82,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="mobile-drawer">
+        <div className="mobile-drawer glass-panel">
           <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="mobile-link">Case Studies</a>
           <a href="#sandboxes" onClick={() => setMobileMenuOpen(false)} className="mobile-link">Interactive Labs</a>
           <a href="#bio" onClick={() => setMobileMenuOpen(false)} className="mobile-link">About & Story</a>
@@ -90,16 +90,24 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
             onClick={() => { onOpenDesignTokens(); setMobileMenuOpen(false); }} 
             className="mobile-link text-left"
           >
-            Design Tokens Spec
+            Design Tokens Spec (Solar Aero)
           </button>
           <div className="mobile-actions">
             <a 
               href="/Zoe_Solaris_Resume.pdf" 
               download 
-              className="btn btn-outline"
+              className="btn btn-frutiger-solar btn-block"
             >
               <Download size={16} />
-              <span>Download Resume</span>
+              <span>Download Resume (PDF)</span>
+            </a>
+            <a 
+              href="#contact" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn btn-frutiger-outline btn-block"
+            >
+              <span>Get in Touch</span>
+              <ArrowUpRight size={16} />
             </a>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Download, FileText, ArrowUp, Heart, Terminal, ExternalLink, Globe, Code2 } from 'lucide-react';
+import { Mail, Download, FileText, ArrowUp, ExternalLink, Globe } from 'lucide-react';
 import { personalBio } from '../data/projects';
 
 export default function Footer() {

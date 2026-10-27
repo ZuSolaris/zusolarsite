@@ -1,7 +1,7 @@
 import React from 'react';
-import { Sparkles, Terminal, Award, Cpu, ArrowDown, Download, FileText, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Terminal, Award, Cpu, ArrowDown, Download } from 'lucide-react';
 
-export default function Hero({ onOpenCaseStudy }) {
+export default function Hero() {
   return (
     <section id="hero" className="hero-section">
       <div className="container hero-container">

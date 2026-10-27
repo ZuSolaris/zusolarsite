@@ -1,12 +1,12 @@
 import React from 'react';
-import { Award, GraduationCap, Briefcase, Download, FileText, CheckCircle2, UserCheck, Mail, Globe } from 'lucide-react';
+import { Award, GraduationCap, Briefcase, Download, CheckCircle2, UserCheck, Mail, Globe } from 'lucide-react';
 import { personalBio } from '../data/projects';
 
 export default function BioStory() {
   return (
     <section id="bio" className="section bio-section">
       <div className="container">
-        
+
         {/* Section Header */}
         <div className="section-header">
           <div className="section-eyebrow">
@@ -17,7 +17,7 @@ export default function BioStory() {
             Lived Experience as a <span className="gradient-text">Design Superpower</span>
           </h2>
           <p className="section-description">
-            The best interfaces aren’t built from textbook theories or asset stripping from dribbble or behance, they are shaped by navigating 
+            The best interfaces aren’t built from textbook theories or asset stripping from dribbble or behance, they are shaped by navigating
             extreme constraints, high-pressure environments, and diverse human realities.
           </p>
         </div>
@@ -59,15 +59,15 @@ export default function BioStory() {
           <div className="bio-prose">
             <p>{personalBio.statement}</p>
             <div className="bio-quote-highlight">
-              <strong>“You don’t solve people. You create an experience that respects and encourages their agency.”</strong>
+              <strong>“You don’t solve people. You create an experience that pushes them to think.”</strong>
             </div>
           </div>
 
           {/* Resume & Portfolio Download Row */}
           <div className="bio-cta-row">
-            <a 
-              href="/Zoe_Solaris_Resume.pdf" 
-              download 
+            <a
+              href="/Zoe_Solaris_Resume.pdf"
+              download
               className="btn btn-primary"
             >
               <Download size={17} />
@@ -78,14 +78,14 @@ export default function BioStory() {
 
         {/* Experience & Education 2-Column Grid */}
         <div className="bio-content-grid">
-          
+
           {/* Experience Column */}
           <div className="bio-column">
             <h4 className="journey-heading">
               <Briefcase size={18} className="inline-icon" />
               <span>Experience</span>
             </h4>
-            
+
             <div className="experience-list">
               {(personalBio.experience || []).map((exp, idx) => (
                 <div key={idx} className="experience-card glass-panel">
@@ -114,7 +114,7 @@ export default function BioStory() {
 
           {/* Education & Honors Column */}
           <div className="bio-column">
-            
+
             {/* Education */}
             <h4 className="journey-heading">
               <GraduationCap size={18} className="inline-icon" />

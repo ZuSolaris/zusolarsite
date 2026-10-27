@@ -287,7 +287,7 @@ export const personalBio = {
   honors: [
     { title: 'Best Research in Engineering', org: 'PNW LSAMP Conference, Oregon State University (2025)' },
     { title: 'WA NASA Space Grant Consortium Scholar', org: 'North Seattle College (2025)' },
-    { title: 'Terrific Tree Frog Student Leadership Service Award', org: 'North Seattle College (2026)' },
+    { title: 'Student Leadership Service Award', org: 'North Seattle College (2026)' },
     { title: 'Submarine Warfare & Deep Submergence Insignias', org: 'United States Navy (2021, 2022)' },
     { title: 'Founder & President', org: 'SEDS, NSC Chapter (2024–2025)' },
     { title: 'Co-Leader', org: 'Queer Trans-Cooperative, North Seattle College (2025–2026)' }
