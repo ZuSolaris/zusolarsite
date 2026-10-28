@@ -8,7 +8,7 @@ const vertexShaderSource = `
   }
 `;
 
-// GLSL Fragment Shader: Pure, ultra-smooth aquatic caustics & volumetric god-rays (Man I love shaders, don't you?)
+// GLSL Fragment Shader: Pure, ultra-smooth aquatic caustics & volumetric god-rays (Man I love shaders, don't you)
 const fragmentShaderSource = `
   precision highp float;
   uniform vec2 u_resolution;

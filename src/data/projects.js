@@ -112,6 +112,8 @@ export const projects = [
     featured: true,
     badge: 'Hardware & AI IxD',
     heroImage: '/projects/solari/hero_1.png',
+    youtubeUrl: 'https://www.youtube.com/watch?v=Fp_gOp9vbz0',
+    videoTitle: 'Project Solari Assistant Demo & Voice Interaction',
     galleryImages: [
       '/projects/solari/hero_1.png',
       '/projects/solari/solari_sarcastic_code_mode.png',

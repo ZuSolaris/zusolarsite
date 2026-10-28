@@ -12,7 +12,7 @@ export default function CaseStudyModal({ project, projects = [], onSelectProject
   const youtubeId = extractYouTubeId(rawYoutubeUrl || currentProject?.youtubeId || (currentProject?.video?.includes('youtu') ? currentProject.video : null)) || (currentProject?.id === 'melon' ? 'uw7a4uLSDmM' : null);
   const hasVideo = Boolean(youtubeId || currentProject?.video || currentProject?.id === 'melon');
   const videoSrc = currentProject?.video;
-  const videoTitle = currentProject?.videoTitle || (currentProject?.id === 'melon' ? 'Live Gameplay & Mechanics Evaluation (MLDA)' : 'Gameplay Evaluation Recording');
+  const videoTitle = currentProject?.videoTitle || (currentProject?.id === 'melon' ? 'Live Gameplay & Mechanics Evaluation (MLDA)' : `${currentProject?.title || 'Project'} Demo Video`);
 
   // Close on Escape key
   useEffect(() => {
