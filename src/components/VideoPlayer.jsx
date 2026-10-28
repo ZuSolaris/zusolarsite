@@ -227,7 +227,7 @@ export default function VideoPlayer({
               <span className="card-play-icon-disc">
                 <Play size={18} fill="currentColor" />
               </span>
-              <span className="card-play-text">Watch Gameplay Video</span>
+              <span className="card-play-text">Watch Video</span>
             </button>
           </div>
 
