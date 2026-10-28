@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import FlowShaderCanvas from './components/FlowShaderCanvas';
+import UnderwaterShaderCanvas from './components/UnderwaterShaderCanvas';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProjectGrid from './components/ProjectGrid';
-import IxDSandbox from './components/IxDSandbox';
 import BioStory from './components/BioStory';
 import Footer from './components/Footer';
 import CaseStudyModal from './components/CaseStudyModal';
@@ -29,15 +29,19 @@ export default function App() {
 
   return (
     <div className="portfolio-app">
-      {/* Interactive GLSL Fluid Flow Shader & Ambient Grid */}
+      {/* High-Performance Underwater Caustics & Oceanic Depth Shader (Universal Global Backdrop) */}
+      <UnderwaterShaderCanvas theme={theme} />
+
+      {/* Surface Fluid Flow Shader (Runs exclusively at the Hero section; auto-pauses when scrolled past) */}
       <FlowShaderCanvas theme={theme} />
+
       <div className="ambient-grid"></div>
 
       {/* Main Navigation */}
-      <Navbar 
-        theme={theme} 
-        toggleTheme={toggleTheme} 
-        onOpenDesignTokens={() => setDesignTokensOpen(true)} 
+      <Navbar
+        theme={theme}
+        toggleTheme={toggleTheme}
+        onOpenDesignTokens={() => setDesignTokensOpen(true)}
       />
 
       <main>
@@ -47,30 +51,28 @@ export default function App() {
         {/* Featured Case Studies Grid with Category Filtering */}
         <ProjectGrid onSelectProject={setSelectedProject} />
 
-        {/* Interactive Interaction Design Labs / Prototypes */}
-        <IxDSandbox />
 
         {/* Bio, Military Experience, Neurodiversity, and Skills Matrix */}
         <BioStory />
       </main>
 
-      {/* Footer with Contact, Resume, and Original PDF Downloads */}
+      {/* Footer with Contact and Links */}
       <Footer />
 
       {/* Full-Bleed Interactive Case Study Modal */}
       {selectedProject && (
-        <CaseStudyModal 
-          project={selectedProject} 
+        <CaseStudyModal
+          project={selectedProject}
           projects={projects}
           onSelectProject={setSelectedProject}
-          onClose={() => setSelectedProject(null)} 
+          onClose={() => setSelectedProject(null)}
         />
       )}
 
       {/* Design System Tokens Spec Viewer */}
-      <DesignTokensViewer 
-        isOpen={designTokensOpen} 
-        onClose={() => setDesignTokensOpen(false)} 
+      <DesignTokensViewer
+        isOpen={designTokensOpen}
+        onClose={() => setDesignTokensOpen(false)}
       />
     </div>
   );

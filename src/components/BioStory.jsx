@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, GraduationCap, Briefcase, Download, CheckCircle2, UserCheck, Mail, Globe } from 'lucide-react';
+import { Award, GraduationCap, Briefcase, CheckCircle2, UserCheck, Mail, Globe } from 'lucide-react';
 import { personalBio } from '../data/projects';
 
 export default function BioStory() {
@@ -63,17 +63,6 @@ export default function BioStory() {
             </div>
           </div>
 
-          {/* Resume & Portfolio Download Row */}
-          <div className="bio-cta-row">
-            <a
-              href="/Zoe_Solaris_Resume.pdf"
-              download
-              className="btn btn-primary"
-            >
-              <Download size={17} />
-              <span>Download Resume (PDF)</span>
-            </a>
-          </div>
         </div>
 
         {/* Experience & Education 2-Column Grid */}

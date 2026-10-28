@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Download, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
 
 export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
   const [scrolled, setScrolled] = useState(false);
@@ -27,7 +27,6 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
         {/* Desktop Navigation Links inside Recessed Chassis Tray */}
         <div className="nav-links nav-socket-tray">
           <a href="#projects" className="nav-link nav-keycap">Case Studies</a>
-          <a href="#sandboxes" className="nav-link nav-keycap">Interactive Labs</a>
           <a href="#bio" className="nav-link nav-keycap">About & Story</a>
           <button onClick={onOpenDesignTokens} className="nav-link nav-keycap tokens-btn" title="View Design System Tokens">
             Design Tokens <span className="mono-tag">Solar Aero</span>
@@ -37,9 +36,9 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
         {/* Desktop Actions inside Distinct Socket Cutouts */}
         <div className="nav-actions">
           <div className="button-socket">
-            <button 
-              onClick={toggleTheme} 
-              className="icon-btn theme-toggle btn-frutiger-outline btn-socket-inner" 
+            <button
+              onClick={toggleTheme}
+              className="icon-btn theme-toggle btn-frutiger-outline btn-socket-inner"
               aria-label="Toggle Theme"
               title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
             >
@@ -47,21 +46,11 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
             </button>
           </div>
 
-          <div className="button-socket desktop-only-socket">
-            <a 
-              href="/Zoe_Solaris_Resume.pdf" 
-              download 
-              className="btn btn-frutiger-outline btn-sm btn-socket-inner"
-              title="Download Zoe Solaris Resume PDF"
-            >
-              <Download size={14} />
-              <span>Resume</span>
-            </a>
-          </div>
+
 
           <div className="button-socket desktop-only-socket">
-            <a 
-              href="#contact" 
+            <a
+              href="#contact"
               className="btn btn-frutiger-solar btn-sm btn-socket-inner"
             >
               <span>Get in Touch</span>
@@ -70,7 +59,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button 
+          <button
             className="icon-btn mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
@@ -84,25 +73,17 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
       {mobileMenuOpen && (
         <div className="mobile-drawer glass-panel">
           <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="mobile-link">Case Studies</a>
-          <a href="#sandboxes" onClick={() => setMobileMenuOpen(false)} className="mobile-link">Interactive Labs</a>
           <a href="#bio" onClick={() => setMobileMenuOpen(false)} className="mobile-link">About & Story</a>
-          <button 
-            onClick={() => { onOpenDesignTokens(); setMobileMenuOpen(false); }} 
+          <button
+            onClick={() => { onOpenDesignTokens(); setMobileMenuOpen(false); }}
             className="mobile-link text-left"
           >
             Design Tokens Spec (Solar Aero)
           </button>
           <div className="mobile-actions">
-            <a 
-              href="/Zoe_Solaris_Resume.pdf" 
-              download 
-              className="btn btn-frutiger-solar btn-block"
-            >
-              <Download size={16} />
-              <span>Download Resume (PDF)</span>
-            </a>
-            <a 
-              href="#contact" 
+
+            <a
+              href="#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="btn btn-frutiger-outline btn-block"
             >

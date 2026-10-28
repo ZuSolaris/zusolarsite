@@ -62,7 +62,7 @@ export default function DesignTokensViewer({ isOpen, onClose }) {
           <div className="token-group">
             <h4 className="token-group-title">
               <Palette size={16} />
-              <span>Color Ramps & Glass Surfaces</span>
+              <span>Color Ramps & Plastic Surfaces</span>
             </h4>
             <div className="tokens-grid">
               {tokens.colors.map(t => (
@@ -169,7 +169,6 @@ export default function DesignTokensViewer({ isOpen, onClose }) {
 
         <div className="tokens-modal-footer">
           <p className="text-muted text-xs">
-            Tokens adhere to WCAG AA contrast standards and are authored in pure CSS Custom Properties for zero runtime overhead.
           </p>
           <button onClick={onClose} className="btn btn-secondary btn-sm">Close Spec</button>
         </div>

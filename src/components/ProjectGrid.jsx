@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Layers, Award, Star, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Layers, Award, Star, CheckCircle2, Play } from 'lucide-react';
 import { projects } from '../data/projects';
 
 const categories = [
@@ -38,9 +38,9 @@ export default function ProjectGrid({ onSelectProject }) {
             <div className="recruiter-pill-row">
               <span className="pill-badge award">
                 <Star size={13} className="inline-icon" />
-                <span>Recruiter Quick Track</span>
+                <span>Top 3 Showcase (Notice Me) ;)</span>
               </span>
-              <span className="recruiter-eval-note">Top 3 Flagship Interaction Design Case Studies</span>
+
             </div>
             <h2 className="section-title">
               Top 3 Works: <span className="gradient-text">Core IxD & Systems</span>
@@ -86,6 +86,13 @@ export default function ProjectGrid({ onSelectProject }) {
                     <div className={`card-badge-pill ${project.badge.includes('Best') ? 'award' : ''}`}>
                       {project.badge.includes('Best') && <Award size={12} className="inline-icon" />}
                       <span>{project.badge}</span>
+                    </div>
+                  )}
+
+                  {(project.video || project.youtubeUrl || project.youtubeId) && (
+                    <div className="card-video-pill">
+                      <Play size={10} fill="currentColor" />
+                      <span>Video Demo</span>
                     </div>
                   )}
                 </div>
@@ -198,6 +205,13 @@ export default function ProjectGrid({ onSelectProject }) {
                     <div className={`card-badge-pill ${project.badge.includes('Best') ? 'award' : ''}`}>
                       {project.badge.includes('Best') && <Award size={12} className="inline-icon" />}
                       <span>{project.badge}</span>
+                    </div>
+                  )}
+
+                  {(project.video || project.youtubeUrl || project.youtubeId) && (
+                    <div className="card-video-pill">
+                      <Play size={10} fill="currentColor" />
+                      <span>Video Demo</span>
                     </div>
                   )}
                 </div>

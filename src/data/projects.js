@@ -106,7 +106,7 @@ export const projects = [
   {
     id: 'solari',
     title: 'Project Solari',
-    subtitle: 'Privacy-First, Locally-Hosted Cybernetic AI Assistant',
+    subtitle: 'Privacy-First, Locally-Hosted, AI Assistant Interface',
     category: 'Interaction & Systems',
     timeframe: 'Apr - May 2026',
     featured: true,
@@ -121,12 +121,12 @@ export const projects = [
     ],
     howMightWe: 'Make AI ownership feel as personal, local, and accessible as choosing your own favorite music player?',
     summary: 'A privacy-first, locally-run AI assistant co-built with AI, open-source models, and local hardware. Features multi-model switching, voice interaction, and cybernetic audio routing on a Legion Go.',
-    problem: 'Commercial AI systems lock users into remote surveillance capitalism with rigid personalities and high network latency. Interacting with AI feels like querying a corporation, not using an intimate extension of oneself.',
-    solution: 'Designed and deployed a modular local-first interface powered by Gemma 2B, Whisper voice-to-text, and Piper text-to-speech. Added zero-friction personality switching and paired with OpenShokz bone conduction headphones to feel like an ambient cybernetic second brain.',
+    problem: 'Commercial AI systems lock users into remote models with rigid personalities and high network latency. Interacting with AI feels like querying a corporation, not using an intimate extension of oneself.',
+    solution: 'Designed and deployed a modular local-first interface powered by Gemma 2B, Whisper voice-to-text, and Piper text-to-speech. Added zero-friction personality switching and paired with OpenShokz bone conduction headphones to feel like an ambient always on assistant.',
     reflection: 'An AI-generated interface is great at mimicry, but terrible at understanding the human impact of its decisions. Designing Solari required deep human-first thinking about tactile latency, voice timbre, and frictionless mental ergonomics.',
     quote: 'I run a Legion Go with 16GB RAM and OpenShokz bone conduction headphones. Almost like a cybernetic implant! GLaDOS handles the voice output, masking distortion while making the whole thing feel crafted, not cobbled.',
     tags: ['Interaction Design', 'Local AI', 'Hardware Integration', 'Cybernetics', 'Systems Mapping'],
-    deliverables: ['Custom UI Interface', 'Ollama/Gemma Integration', 'Voice I/O Pipeline', 'Batch Launcher System']
+    deliverables: ['Custom UI Interface', 'LLM Integration', 'Voice I/O Pipeline', 'Batch Launcher System']
   },
   {
     id: 'melon',
@@ -137,6 +137,8 @@ export const projects = [
     featured: false,
     badge: 'Published Game (Itch.io)',
     heroImage: '/projects/melon/hero_1.png',
+    youtubeUrl: 'https://youtu.be/uw7a4uLSDmM',
+    videoTitle: 'Live Gameplay & Mechanics Evaluation (MLDA)',
     galleryImages: [
       '/projects/melon/hero_1.png',
       '/projects/melon/asset_2.png',

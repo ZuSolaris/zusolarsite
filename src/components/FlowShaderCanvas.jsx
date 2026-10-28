@@ -128,22 +128,30 @@ const fragmentShaderSource = `
     // Blend between dark mode and light mode
     vec3 col = mix(col_dark, col_light, u_is_light);
 
-    gl_FragColor = vec4(col, 1.0);
+    // Seamless alpha dissipation towards the bottom of the hero into the underwater shader
+    float seamlessAlpha = smoothstep(0.02, 0.50, uv.y);
+    gl_FragColor = vec4(col, seamlessAlpha);
   }
 `;
 
 export default function FlowShaderCanvas({ theme = 'dark' }) {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    const gl = canvas.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'low-power' }) ||
+               canvas.getContext('experimental-webgl');
     if (!gl) {
       console.warn('WebGL not supported for FlowShaderCanvas');
       return;
     }
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     // Helper: Compile shader
     function createShader(gl, type, source) {
@@ -160,6 +168,7 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
 
     const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
     const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+    if (!vertexShader || !fragmentShader) return;
 
     const program = gl.createProgram();
     gl.attachShader(program, vertexShader);
@@ -180,11 +189,11 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
       gl.ARRAY_BUFFER,
       new Float32Array([
         -1.0, -1.0,
-        1.0, -1.0,
-        -1.0, 1.0,
-        -1.0, 1.0,
-        1.0, -1.0,
-        1.0, 1.0,
+         1.0, -1.0,
+        -1.0,  1.0,
+        -1.0,  1.0,
+         1.0, -1.0,
+         1.0,  1.0,
       ]),
       gl.STATIC_DRAW
     );
@@ -203,51 +212,100 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
     let mouseY = window.innerHeight * 0.5;
     let targetMouseX = mouseX;
     let targetMouseY = mouseY;
+    let isIntersecting = true;
+    let isTabVisible = true;
+    let animationFrameId = null;
 
     const handleMouseMove = (e) => {
       targetMouseX = e.clientX;
       targetMouseY = window.innerHeight - e.clientY; // Invert for WebGL coordinates
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    // Resize handler
+    // Resize handler (capped DPR at 1.25 for buttery 60fps performance)
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // Cap DPR at 1.5 for buttery 60fps performance
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const width = container.clientWidth || window.innerWidth;
+      const height = container.clientHeight || window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Render loop
-    let animationFrameId;
     const startTime = performance.now();
 
     const render = () => {
-      const elapsedTime = (performance.now() - startTime) * 0.001;
+      // ONLY render if hero is visible in viewport and tab is active
+      if (isIntersecting && isTabVisible) {
+        const elapsedTime = (performance.now() - startTime) * 0.001;
 
-      // Soft mouse interpolation for organic spring feel
-      mouseX += (targetMouseX - mouseX) * 0.05;
-      mouseY += (targetMouseY - mouseY) * 0.05;
+        // Soft mouse interpolation for organic spring feel
+        mouseX += (targetMouseX - mouseX) * 0.05;
+        mouseY += (targetMouseY - mouseY) * 0.05;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
-      gl.uniform1f(uTimeLoc, elapsedTime);
-      gl.uniform2f(uMouseLoc, mouseX * dpr, mouseY * dpr);
-      gl.uniform1f(uIsLightLoc, theme === 'light' ? 1.0 : 0.0);
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+        gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
+        gl.uniform1f(uTimeLoc, elapsedTime);
+        gl.uniform2f(uMouseLoc, mouseX * dpr, mouseY * dpr);
+        gl.uniform1f(uIsLightLoc, theme === 'light' ? 1.0 : 0.0);
 
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-      animationFrameId = requestAnimationFrame(render);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        animationFrameId = requestAnimationFrame(render);
+      } else {
+        // Stopped: idle until scrolled back into view
+        animationFrameId = null;
+      }
     };
 
-    render();
+    const startRenderLoop = () => {
+      if (!animationFrameId && isIntersecting && isTabVisible) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
+    const stopRenderLoop = () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    };
+
+    // IntersectionObserver: HALT shader completely when user scrolls past Hero
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          startRenderLoop();
+        } else {
+          stopRenderLoop();
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    const handleVisibilityChange = () => {
+      isTabVisible = document.visibilityState === 'visible';
+      if (isTabVisible && isIntersecting) {
+        startRenderLoop();
+      } else {
+        stopRenderLoop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // Initial kick-off
+    startRenderLoop();
 
     // Cleanup
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopRenderLoop();
+      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', resizeCanvas);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (positionBuffer) gl.deleteBuffer(positionBuffer);
       if (program) gl.deleteProgram(program);
       if (vertexShader) gl.deleteShader(vertexShader);
@@ -256,9 +314,9 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
   }, [theme]);
 
   return (
-    <div className="flow-shader-container" aria-hidden="true">
-      <canvas ref={canvasRef} className="flow-shader-canvas" />
-      <div className="flow-shader-overlay"></div>
+    <div ref={containerRef} className="hero-flow-shader-container" aria-hidden="true">
+      <canvas ref={canvasRef} className="hero-flow-shader-canvas" />
+      <div className="hero-flow-shader-overlay"></div>
     </div>
   );
 }

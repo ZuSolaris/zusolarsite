@@ -218,6 +218,7 @@
   .brand-title {
     display: none;
   }
+
   .nav-brand {
     gap: 0.5rem;
   }
@@ -462,9 +463,12 @@
 }
 
 @keyframes floatSlow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -476,10 +480,12 @@
     align-items: flex-start;
     gap: 1.5rem;
   }
+
   .hero-emblem-img {
     width: 90px;
     height: 90px;
   }
+
   .hero-logo-halo {
     width: 110px;
     height: 110px;
@@ -1214,6 +1220,33 @@
   border-color: rgba(251, 191, 36, 0.6);
 }
 
+.card-video-pill {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: linear-gradient(180deg,
+      rgba(239, 68, 68, 0.32) 0%,
+      rgba(185, 28, 28, 0.22) 50%,
+      rgba(35, 10, 10, 0.85) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fee2e2;
+  border: 1.5px solid rgba(248, 113, 113, 0.6);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
 .card-body {
   padding: 1.75rem;
   display: flex;
@@ -1321,12 +1354,6 @@
   transition: transform var(--duration-fast);
 }
 
-/* --------------------------------------------------------------------------
-   INTERACTIVE LABS (IXD SANDBOX)
-   -------------------------------------------------------------------------- */
-.sandboxes-section {
-  background: linear-gradient(180deg, transparent 0%, rgba(15, 21, 35, 0.4) 50%, transparent 100%);
-}
 
 .sandbox-tab-bar {
   display: grid;
@@ -1393,17 +1420,33 @@
   margin: 0.5rem 0;
 }
 
+/* Sandbox Hardware Badge - Night Mode (Default) */
 .sandbox-hardware-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.16) 0%, rgba(4, 45, 36, 0.55) 100%);
+  border: 1px solid rgba(52, 211, 153, 0.35);
   color: #34d399;
   font-size: 0.8rem;
   font-weight: 600;
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-full);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.18),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all var(--duration-fast);
+}
+
+.sandbox-hardware-badge:hover {
+  border-color: rgba(52, 211, 153, 0.6);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+    0 4px 14px rgba(16, 185, 129, 0.25);
 }
 
 .dot {
@@ -1411,14 +1454,17 @@
   height: 8px;
   border-radius: 50%;
   display: inline-block;
+  flex-shrink: 0;
 }
 
 .dot.success {
   background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
 }
 
 .dot.error {
   background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.7);
 }
 
 /* Lab 1: Solari Specifics */
@@ -2211,6 +2257,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -2443,6 +2490,106 @@
   gap: 0.4rem;
   border: 1px solid rgba(78, 240, 248, 0.3);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ====================================================================
+   MODAL VIDEO SHOWCASE (MLDA GAMEPLAY EVALUATION)
+   ==================================================================== */
+.modal-video-showcase-container {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(1, 12, 18, 0.95);
+  border: 1px solid rgba(78, 240, 248, 0.3);
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.25),
+    0 16px 40px rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-video-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.15rem;
+  background: rgba(3, 22, 30, 0.9);
+  border-bottom: 1px solid rgba(78, 240, 248, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  gap: 0.75rem;
+}
+
+.modal-video-live-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.live-rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px #ef4444;
+  animation: pulse-recording 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-recording {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.live-rec-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  letter-spacing: 0.02em;
+}
+
+.modal-video-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.modal-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 380px;
+  height: 480px;
+  background: #02090e;
+  display: block;
+  max-height: 540px;
+  overflow: hidden;
+}
+
+.modal-embedded-video {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 540px;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.modal-embedded-iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+  background: #000;
 }
 
 .modal-summary-box {
@@ -3511,9 +3658,14 @@
 }
 
 /* --------------------------------------------------------------------------
-   INTERACTIVE GLSL FLUID FLOW SHADER
+/* --------------------------------------------------------------------------
+   DUAL-SHADER ARCHITECTURE:
+   1. UNIVERSAL UNDERWATER BACKDROP SHADER (High performance, caustics, god rays & diffused bubbles)
+   2. HERO SURFACE FLOW SHADER (Runs only at hero, auto-pauses offscreen, seamless dissipation)
    -------------------------------------------------------------------------- */
-.flow-shader-container {
+
+/* 1. Universal Underwater Backdrop Shader */
+.underwater-shader-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -3522,32 +3674,83 @@
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-  opacity: 0.6;
+  opacity: 0.82;
   transition: opacity var(--duration-normal);
 }
 
-.flow-shader-canvas {
+.underwater-shader-canvas {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.flow-shader-overlay {
+.underwater-shader-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at 50% 30%, transparent 35%, var(--bg-primary) 92%);
+  background: radial-gradient(ellipse at 50% 35%, transparent 50%, rgba(3, 10, 18, 0.35) 100%);
   pointer-events: none;
 }
 
-[data-theme='light'] .flow-shader-container {
-  opacity: 0.92;
+[data-theme='light'] .underwater-shader-container {
+  opacity: 0.94;
 }
 
-[data-theme='light'] .flow-shader-overlay {
-  background: radial-gradient(ellipse at 50% 35%, transparent 48%, rgba(242, 249, 251, 0.35) 92%);
+[data-theme='light'] .underwater-shader-overlay {
+  background: radial-gradient(ellipse at 50% 35%, transparent 55%, rgba(242, 249, 251, 0.2) 100%);
+}
+
+/* 2. Hero Flow Shader (Seamlessly blends directly into the underwater shader) */
+.hero-flow-shader-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: min(105vh, 960px);
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.72;
+  /* Ultra-smooth continuous dissipation mask: dissolves organically into the underwater world */
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.95) 40%,
+      rgba(0, 0, 0, 0.6) 68%,
+      rgba(0, 0, 0, 0.15) 88%,
+      rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.95) 40%,
+      rgba(0, 0, 0, 0.6) 68%,
+      rgba(0, 0, 0, 0.15) 88%,
+      rgba(0, 0, 0, 0) 100%);
+  transition: opacity var(--duration-normal);
+}
+
+.hero-flow-shader-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-flow-shader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 50% 25%, transparent 40%, rgba(9, 12, 20, 0.25) 90%);
+  pointer-events: none;
+}
+
+[data-theme='light'] .hero-flow-shader-container {
+  opacity: 0.95;
+}
+
+[data-theme='light'] .hero-flow-shader-overlay {
+  background: radial-gradient(ellipse at 50% 30%, transparent 45%, rgba(242, 249, 251, 0.18) 90%);
 }
 
 /* ==========================================================================
@@ -4394,6 +4597,43 @@
     0 2px 8px rgba(0, 120, 145, 0.35) !important;
 }
 
+/* Sandbox Hardware Badge - Day Mode */
+[data-theme='light'] .sandbox-hardware-badge {
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 12%, rgba(255, 255, 255, 0.6) 0%, transparent 65%),
+    linear-gradient(180deg,
+      rgba(52, 211, 153, 0.45) 0%,
+      rgba(16, 185, 129, 0.75) 45%,
+      rgba(4, 120, 87, 0.95) 100%) !important;
+  border: 1px solid rgba(167, 243, 208, 0.7) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(2, 44, 34, 0.85) !important;
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.85),
+    inset 0 -1.5px 2px rgba(2, 44, 34, 0.6),
+    0 3px 10px rgba(4, 120, 87, 0.35) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+[data-theme='light'] .sandbox-hardware-badge:hover {
+  border-color: #ffffff !important;
+  box-shadow:
+    inset 0 2px 1.5px rgba(255, 255, 255, 1),
+    inset 0 -2px 3px rgba(2, 44, 34, 0.75),
+    0 4px 16px rgba(16, 185, 129, 0.45) !important;
+}
+
+[data-theme='light'] .sandbox-hardware-badge .dot.success {
+  background: #a7f3d0 !important;
+  box-shadow: 0 0 8px #a7f3d0, inset 0 1px 1px #ffffff !important;
+}
+
+[data-theme='light'] .sandbox-hardware-badge .dot.error {
+  background: #fca5a5 !important;
+  box-shadow: 0 0 8px #fca5a5, inset 0 1px 1px #ffffff !important;
+}
+
 /* ==========================================================================
    PAGE-LEVEL TYPOGRAPHY (EXPOSED DIRECTLY TO WEBGL SHADER CANVAS)
    Deep high-contrast obsidian teal for 100% razor-sharp readability
@@ -4411,7 +4651,9 @@
 
 [data-theme='light'] .hero-title .gradient-text,
 [data-theme='light'] .section-title .gradient-text {
-  background: linear-gradient(135deg, #007c91 0%, #005662 50%, #014377 100%) !important;
+  background: linear-gradient(135deg, #007c91 0%, #005662 50%, #014377 100%);
+
+  filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.8)) drop-shadow(0 4px 12px rgba(0, 45, 60, 0.35)) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Terminal, Award, Cpu, ArrowDown, Download } from 'lucide-react';
+import { Sparkles, Terminal, Award, Cpu, ArrowDown } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -82,21 +82,14 @@ export default function Hero() {
             <span>Explore Case Studies</span>
             <ArrowDown size={18} />
           </a>
-          <a href="#sandboxes" className="btn btn-frutiger-outline btn-lg">
+          <a href="#bio" className="btn btn-frutiger-outline btn-lg">
             <Terminal size={18} />
-            <span>Interactive Labs</span>
-          </a>
-          <a
-            href="/Zoe_Solaris_Resume.pdf"
-            download
-            className="btn btn-frutiger-outline btn-lg"
-          >
-            <Download size={18} />
-            <span>Resume (PDF)</span>
+            <span>About & Story</span>
           </a>
         </div>
 
       </div>
+
     </section>
   );
 }
