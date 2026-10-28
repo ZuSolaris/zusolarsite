@@ -1,17 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Calendar, CheckCircle2, Quote, ArrowLeft, ArrowRight, ZoomIn, ChevronLeft, ChevronRight, FileText, ExternalLink } from 'lucide-react';
-
-function extractYouTubeId(url) {
-  if (!url) return null;
-  const str = String(url).trim();
-  if (/^[a-zA-Z0-9_-]{11}$/.test(str)) return str;
-  const match = str.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-  return match ? match[1] : null;
-}
+import VideoPlayer, { extractYouTubeId } from './VideoPlayer';
 
 export default function CaseStudyModal({ project, projects = [], onSelectProject, onClose }) {
   const [selectedImage, setSelectedImage] = useState(null);
-  const videoRef = useRef(null);
 
   // Look up fresh project from projects array to prevent stale React state
   const currentProject = projects.find(p => p.id === project?.id) || project;
@@ -21,19 +13,6 @@ export default function CaseStudyModal({ project, projects = [], onSelectProject
   const hasVideo = Boolean(youtubeId || currentProject?.video || currentProject?.id === 'melon');
   const videoSrc = currentProject?.video;
   const videoTitle = currentProject?.videoTitle || (currentProject?.id === 'melon' ? 'Live Gameplay & Mechanics Evaluation (MLDA)' : 'Gameplay Evaluation Recording');
-
-  // Play video automatically when modal opens or switches to project with local video
-  useEffect(() => {
-    if (videoRef.current && hasVideo && !youtubeId) {
-      const vid = videoRef.current;
-      const playPromise = vid.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn('Video autoplay suppressed by browser policy:', err);
-        });
-      }
-    }
-  }, [currentProject?.id, hasVideo, youtubeId]);
 
   // Close on Escape key
   useEffect(() => {
@@ -128,41 +107,15 @@ export default function CaseStudyModal({ project, projects = [], onSelectProject
 
           {/* Hero Media: Embedded Video Showcase (MLDA Gameplay) or Hero Schematic */}
           {hasVideo ? (
-            <div className="modal-video-showcase-container">
-              <div className="modal-video-header-bar">
-                <div className="modal-video-live-tag">
-                  <span className="live-rec-dot"></span>
-                  <span className="live-rec-text">{videoTitle}</span>
-                </div>
-                <span className="modal-video-hint">{youtubeId ? 'YouTube HD Player' : 'Autoplaying • Unmute for Sound'}</span>
-              </div>
-              <div className="modal-video-frame">
-                {youtubeId ? (
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&rel=0&modestbranding=1`}
-                    title={videoTitle}
-                    className="modal-embedded-iframe"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  />
-                ) : (
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    muted
-                    playsInline
-                    loop
-                    controls
-                    preload="auto"
-                    className="modal-embedded-video"
-                    poster={currentProject.heroImage}
-                  >
-                    <source src={videoSrc} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </div>
-            </div>
+            <VideoPlayer
+              youtubeUrl={rawYoutubeUrl}
+              youtubeId={youtubeId}
+              videoSrc={videoSrc}
+              poster={currentProject.heroImage}
+              title={videoTitle}
+              mode="modal"
+              autoPlay={true}
+            />
           ) : (
             <div 
               className="modal-hero-wrapper" 

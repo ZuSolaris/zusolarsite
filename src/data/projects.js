@@ -114,10 +114,9 @@ export const projects = [
     heroImage: '/projects/solari/hero_1.png',
     galleryImages: [
       '/projects/solari/hero_1.png',
-      '/projects/solari/asset_2.png',
-      '/projects/solari/asset_3.png',
-      '/projects/solari/asset_4.png',
-      '/projects/solari/asset_5.png'
+      '/projects/solari/solari_sarcastic_code_mode.png',
+      '/projects/solari/solari_sycophantic_mode.png',
+      '/projects/solari/solari_batch_launcher_runtime.png'
     ],
     howMightWe: 'Make AI ownership feel as personal, local, and accessible as choosing your own favorite music player?',
     summary: 'A privacy-first, locally-run AI assistant co-built with AI, open-source models, and local hardware. Features multi-model switching, voice interaction, and cybernetic audio routing on a Legion Go.',
@@ -136,15 +135,16 @@ export const projects = [
     timeframe: 'Mar - Apr 2026',
     featured: false,
     badge: 'Published Game (Itch.io)',
-    heroImage: '/projects/melon/hero_1.png',
+    heroImage: '/projects/melon/gameplay_overload.png',
     youtubeUrl: 'https://youtu.be/uw7a4uLSDmM',
     videoTitle: 'Live Gameplay & Mechanics Evaluation (MLDA)',
     galleryImages: [
-      '/projects/melon/hero_1.png',
+      '/projects/melon/title_screen.png',
+      '/projects/melon/gameplay_overload.png',
+      '/projects/melon/gameplay_burnout_shop.png',
       '/projects/melon/asset_2.png',
       '/projects/melon/asset_3.png',
       '/projects/melon/asset_4.png',
-      '/projects/melon/asset_5.png',
       '/projects/melon/asset_6.png'
     ],
     howMightWe: 'Design a game that makes the player hooked on a loop on purpose, so they finally recognize manipulative digital mechanics everywhere else?',

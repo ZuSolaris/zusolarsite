@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Layers, Award, Star, CheckCircle2, Play } from 'lucide-react';
+import VideoPlayer from './VideoPlayer';
 import { projects } from '../data/projects';
 
 const categories = [
@@ -69,31 +70,39 @@ export default function ProjectGrid({ onSelectProject }) {
 
                 {/* Media Preview */}
                 <div className="card-media-wrapper top-card-media">
-                  <img
-                    src={project.heroImage}
-                    alt={project.title}
-                    className="card-media-img"
-                    loading="eager"
-                  />
-                  <div className="card-media-overlay">
-                    <span className="view-case-study-badge">
-                      <span>Read Full Deep Dive</span>
-                      <ArrowRight size={14} />
-                    </span>
-                  </div>
+                  {(project.video || project.youtubeUrl || project.youtubeId) ? (
+                    <VideoPlayer
+                      youtubeUrl={project.youtubeUrl}
+                      youtubeId={project.youtubeId}
+                      videoSrc={project.video}
+                      poster={project.heroImage}
+                      title={project.videoTitle || `${project.title} Video Demo`}
+                      badge={project.badge}
+                      mode="card"
+                      onOpenModal={() => onSelectProject(project)}
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={project.heroImage}
+                        alt={project.title}
+                        className="card-media-img"
+                        loading="eager"
+                      />
+                      <div className="card-media-overlay">
+                        <span className="view-case-study-badge">
+                          <span>Read Full Deep Dive</span>
+                          <ArrowRight size={14} />
+                        </span>
+                      </div>
 
-                  {project.badge && (
-                    <div className={`card-badge-pill ${project.badge.includes('Best') ? 'award' : ''}`}>
-                      {project.badge.includes('Best') && <Award size={12} className="inline-icon" />}
-                      <span>{project.badge}</span>
-                    </div>
-                  )}
-
-                  {(project.video || project.youtubeUrl || project.youtubeId) && (
-                    <div className="card-video-pill">
-                      <Play size={10} fill="currentColor" />
-                      <span>Video Demo</span>
-                    </div>
+                      {project.badge && (
+                        <div className={`card-badge-pill ${project.badge.includes('Best') ? 'award' : ''}`}>
+                          {project.badge.includes('Best') && <Award size={12} className="inline-icon" />}
+                          <span>{project.badge}</span>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
 
@@ -188,31 +197,39 @@ export default function ProjectGrid({ onSelectProject }) {
               >
                 {/* Media Preview */}
                 <div className="card-media-wrapper">
-                  <img
-                    src={project.heroImage}
-                    alt={project.title}
-                    className="card-media-img"
-                    loading="lazy"
-                  />
-                  <div className="card-media-overlay">
-                    <span className="view-case-study-badge">
-                      <span>Read Deep Dive</span>
-                      <ArrowRight size={14} />
-                    </span>
-                  </div>
+                  {(project.video || project.youtubeUrl || project.youtubeId) ? (
+                    <VideoPlayer
+                      youtubeUrl={project.youtubeUrl}
+                      youtubeId={project.youtubeId}
+                      videoSrc={project.video}
+                      poster={project.heroImage}
+                      title={project.videoTitle || `${project.title} Video Demo`}
+                      badge={project.badge}
+                      mode="card"
+                      onOpenModal={() => onSelectProject(project)}
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={project.heroImage}
+                        alt={project.title}
+                        className="card-media-img"
+                        loading="lazy"
+                      />
+                      <div className="card-media-overlay">
+                        <span className="view-case-study-badge">
+                          <span>Read Deep Dive</span>
+                          <ArrowRight size={14} />
+                        </span>
+                      </div>
 
-                  {project.badge && (
-                    <div className={`card-badge-pill ${project.badge.includes('Best') ? 'award' : ''}`}>
-                      {project.badge.includes('Best') && <Award size={12} className="inline-icon" />}
-                      <span>{project.badge}</span>
-                    </div>
-                  )}
-
-                  {(project.video || project.youtubeUrl || project.youtubeId) && (
-                    <div className="card-video-pill">
-                      <Play size={10} fill="currentColor" />
-                      <span>Video Demo</span>
-                    </div>
+                      {project.badge && (
+                        <div className={`card-badge-pill ${project.badge.includes('Best') ? 'award' : ''}`}>
+                          {project.badge.includes('Best') && <Award size={12} className="inline-icon" />}
+                          <span>{project.badge}</span>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
 

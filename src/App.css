@@ -1247,6 +1247,255 @@
   z-index: 2;
 }
 
+/* ====================================================================
+   REUSABLE VIDEO PLAYER COMPONENT (CARD MODE)
+   ==================================================================== */
+.card-video-player-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  background: rgba(1, 14, 20, 0.95);
+}
+
+.card-video-thumbnail-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-play-cta-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  background: radial-gradient(circle at center, rgba(1, 15, 24, 0.25) 0%, rgba(2, 22, 30, 0.65) 100%);
+  transition: background var(--duration-normal);
+}
+
+.card-play-video-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 1.15rem 0.55rem 0.75rem;
+  border-radius: var(--radius-full);
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
+    linear-gradient(180deg,
+      rgba(78, 240, 248, 0.38) 0%,
+      rgba(0, 160, 185, 0.48) 50%,
+      rgba(2, 45, 58, 0.88) 100%);
+  border: 1.5px solid rgba(78, 240, 248, 0.8);
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.85),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.6),
+    0 8px 24px rgba(0, 200, 225, 0.45),
+    0 0 16px rgba(78, 240, 248, 0.35);
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-spring), box-shadow var(--duration-fast), border-color var(--duration-fast);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: visible;
+}
+
+.card-play-video-btn:hover {
+  transform: scale(1.08);
+  border-color: #ffffff;
+  box-shadow:
+    inset 0 2px 1.5px rgba(255, 255, 255, 1),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.7),
+    0 12px 32px rgba(0, 220, 250, 0.6),
+    0 0 24px rgba(78, 240, 248, 0.5);
+}
+
+.card-play-icon-disc {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4ef0f8 0%, #00b8cc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #021a22;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  padding-left: 2px;
+}
+
+.card-play-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  color: #f0fdfa;
+}
+
+.card-video-bottom-hint {
+  position: absolute;
+  bottom: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(1, 16, 22, 0.82);
+  border: 1px solid rgba(78, 240, 248, 0.3);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #99f6e4;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Active Playing State in Card */
+.card-video-playing-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #02090e;
+  z-index: 10;
+}
+
+.card-video-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.65rem;
+  background: rgba(1, 18, 25, 0.96);
+  border-bottom: 1px solid rgba(78, 240, 248, 0.25);
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.card-video-top-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  overflow: hidden;
+}
+
+.card-video-title-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.card-video-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.card-video-action-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(78, 240, 248, 0.3);
+  color: #e2e8f0;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.card-video-action-icon:hover {
+  background: rgba(78, 240, 248, 0.25);
+  color: #ffffff;
+  border-color: #4ef0f8;
+}
+
+.card-video-action-icon.close:hover {
+  background: rgba(239, 68, 68, 0.4);
+  border-color: #f87171;
+  color: #fff;
+}
+
+.card-video-embed-box {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 32px);
+  background: #000000;
+  overflow: hidden;
+}
+
+.card-embedded-iframe,
+.card-embedded-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  object-fit: cover;
+  background: #000;
+}
+
+/* Light Theme Overrides for Card Video Player */
+[data-theme='light'] .card-video-player-root {
+  background: rgba(230, 247, 250, 0.95);
+}
+
+[data-theme='light'] .card-play-video-btn {
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 15%, rgba(255, 255, 255, 0.8) 0%, transparent 60%),
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(180, 235, 245, 0.92) 50%,
+      rgba(0, 160, 180, 0.96) 100%) !important;
+  color: #004d5a !important;
+  border: 1.5px solid rgba(0, 160, 180, 0.85) !important;
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 1),
+    0 8px 24px rgba(0, 130, 150, 0.35) !important;
+}
+
+[data-theme='light'] .card-play-text {
+  color: #013740 !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .card-video-top-bar {
+  background: rgba(240, 249, 251, 0.96);
+  border-bottom: 1px solid rgba(0, 140, 160, 0.25);
+}
+
+[data-theme='light'] .card-video-title-text {
+  color: #013740;
+}
+
+[data-theme='light'] .card-video-action-icon {
+  background: rgba(0, 80, 95, 0.1);
+  border-color: rgba(0, 140, 160, 0.3);
+  color: #013740;
+}
+
+[data-theme='light'] .card-video-bottom-hint {
+  background: rgba(240, 249, 251, 0.92);
+  border-color: rgba(0, 140, 160, 0.35);
+  color: #005a66;
+}
+
 .card-body {
   padding: 1.75rem;
   display: flex;
