@@ -2569,7 +2569,7 @@
 
 .modal-timeframe {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -3080,6 +3080,7 @@
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
+  color: var(--text-primary);
 }
 
 .reflection-text {
@@ -3154,8 +3155,11 @@
   gap: 0.35rem;
   font-size: 0.78rem;
   color: var(--text-accent);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
   font-family: var(--font-mono);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .spotlight-img-frame {
@@ -5351,6 +5355,83 @@
 
 [data-theme='light'] .deliverable-item .check-icon {
   color: #5ef2fa !important;
+}
+
+/* ==========================================================================
+   HIGH-CONTRAST LIGHT THEME: CASE STUDY MODAL & SPOTLIGHT ARCHITECTURE
+   Fixes washed-out / dark text on translucent Bondi Blue jewel surfaces
+   ========================================================================== */
+[data-theme='light'] .modal-timeframe {
+  color: #c4f7fd !important;
+  text-shadow: 0 1px 2px rgba(0, 30, 40, 0.7) !important;
+}
+
+[data-theme='light'] .modal-title {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 30, 40, 0.85) !important;
+}
+
+[data-theme='light'] .modal-subtitle {
+  color: #f0fdff !important;
+  text-shadow: 0 1px 2px rgba(0, 25, 35, 0.75) !important;
+}
+
+[data-theme='light'] .section-mini-heading {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 30, 40, 0.85) !important;
+}
+
+[data-theme='light'] .spotlight-section-subtitle {
+  color: #f0fdff !important;
+  text-shadow: 0 1px 2px rgba(0, 25, 35, 0.75) !important;
+}
+
+[data-theme='light'] .spotlight-card-title {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 30, 40, 0.85) !important;
+}
+
+[data-theme='light'] .spotlight-card-desc {
+  color: #f0fdff !important;
+  text-shadow: 0 1px 2px rgba(0, 25, 35, 0.75) !important;
+}
+
+[data-theme='light'] .spotlight-zoom-indicator {
+  color: #7ef8ff !important;
+  text-shadow: 0 1px 2px rgba(0, 30, 40, 0.8) !important;
+  background: rgba(0, 35, 45, 0.6) !important;
+  padding: 3px 8px !important;
+  border-radius: var(--radius-full) !important;
+}
+
+[data-theme='light'] .reflection-text {
+  color: #f0fdff !important;
+  text-shadow: 0 1px 2px rgba(0, 25, 35, 0.75) !important;
+}
+
+[data-theme='light'] .modal-summary-text,
+[data-theme='light'] .modal-callout-text {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 25, 35, 0.75) !important;
+}
+
+[data-theme='light'] .modal-callout-label,
+[data-theme='light'] .tags-label {
+  color: #6ef5fc !important;
+  text-shadow: 0 1px 2px rgba(0, 30, 40, 0.8) !important;
+}
+
+[data-theme='light'] .pitfall-risk {
+  color: #ff9494 !important;
+  text-shadow: 0 1px 2px rgba(0, 30, 40, 0.8) !important;
+}
+
+[data-theme='light'] .pitfall-detail {
+  color: #f0fdff !important;
+}
+
+[data-theme='light'] .gallery-count-badge {
+  color: #c4f7fd !important;
 }
 
 /* ==========================================================================
