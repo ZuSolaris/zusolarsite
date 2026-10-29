@@ -27,13 +27,15 @@ export default function App() {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
+  const isAnyModalOpen = Boolean(selectedProject || designTokensOpen);
+
   return (
     <div className="portfolio-app">
       {/* High-Performance Underwater Caustics & Oceanic Depth Shader (Universal Global Backdrop) */}
-      <UnderwaterShaderCanvas theme={theme} />
+      <UnderwaterShaderCanvas theme={theme} isModalOpen={isAnyModalOpen} />
 
       {/* Surface Fluid Flow Shader (Runs exclusively at the Hero section; auto-pauses when scrolled past) */}
-      <FlowShaderCanvas theme={theme} />
+      <FlowShaderCanvas theme={theme} isModalOpen={isAnyModalOpen} />
 
       <div className="ambient-grid"></div>
 

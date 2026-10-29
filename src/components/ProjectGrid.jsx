@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Layers, Award, Star, CheckCircle2, Play } from 'lucide-react';
+import { ArrowRight, Layers, Award, Star, CheckCircle2 } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
 import { projects } from '../data/projects';
 
@@ -31,23 +31,19 @@ export default function ProjectGrid({ onSelectProject }) {
     <section id="projects" className="section projects-section">
       <div className="container">
 
-        {/* ====================================================================
-            If your an engineer and you can read this congrats! Yes I can design, yes I can navigate react. :p
-            ==================================================================== */}
         <div className="recruiter-spotlight-wrapper">
           <div className="section-header recruiter-header">
             <div className="recruiter-pill-row">
               <span className="pill-badge award">
                 <Star size={13} className="inline-icon" />
-                <span>Top 3 Showcase (Notice Me) ;)</span>
+                <span>Featured Systems</span>
               </span>
-
             </div>
             <h2 className="section-title">
-              Top 3 Works: <span className="gradient-text">Core IxD & Systems</span>
+              Featured Works: <span className="gradient-text">Core IxD & Systems</span>
             </h2>
             <p className="section-description">
-              If you have 3 minutes, start here. Curated specifically for design recruiters to evaluate end-to-end hardware-software logic, behavioral systems psychology, and cybernetic local-first AI.
+              Hardware-software prototypes, behavioral interaction systems, and local-first computing.
             </p>
           </div>
 

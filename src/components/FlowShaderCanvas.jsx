@@ -8,6 +8,7 @@ const vertexShaderSource = `
   }
 `;
 
+// Pretty neat huh? Don't worry I made a view boundary so it doesn't render when your not looking.
 // GLSL Fragment Shader: Domain-warped fluid noise flow
 const fragmentShaderSource = `
   precision highp float;
@@ -134,7 +135,7 @@ const fragmentShaderSource = `
   }
 `;
 
-export default function FlowShaderCanvas({ theme = 'dark' }) {
+export default function FlowShaderCanvas({ theme = 'dark', isModalOpen = false }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -144,7 +145,7 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
     if (!canvas || !container) return;
 
     const gl = canvas.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'low-power' }) ||
-               canvas.getContext('experimental-webgl');
+      canvas.getContext('experimental-webgl');
     if (!gl) {
       console.warn('WebGL not supported for FlowShaderCanvas');
       return;
@@ -189,11 +190,11 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
       gl.ARRAY_BUFFER,
       new Float32Array([
         -1.0, -1.0,
-         1.0, -1.0,
-        -1.0,  1.0,
-        -1.0,  1.0,
-         1.0, -1.0,
-         1.0,  1.0,
+        1.0, -1.0,
+        -1.0, 1.0,
+        -1.0, 1.0,
+        1.0, -1.0,
+        1.0, 1.0,
       ]),
       gl.STATIC_DRAW
     );
@@ -213,7 +214,8 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
     let targetMouseX = mouseX;
     let targetMouseY = mouseY;
     let isIntersecting = true;
-    let isTabVisible = true;
+    let isTabVisible = document.visibilityState === 'visible';
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
     let animationFrameId = null;
 
     const handleMouseMove = (e) => {
@@ -236,22 +238,26 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
 
     const startTime = performance.now();
 
+    const drawFrame = () => {
+      const elapsedTime = (performance.now() - startTime) * 0.001;
+
+      // Soft mouse interpolation for organic spring feel
+      mouseX += (targetMouseX - mouseX) * 0.05;
+      mouseY += (targetMouseY - mouseY) * 0.05;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
+      gl.uniform1f(uTimeLoc, elapsedTime);
+      gl.uniform2f(uMouseLoc, mouseX * dpr, mouseY * dpr);
+      gl.uniform1f(uIsLightLoc, theme === 'light' ? 1.0 : 0.0);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    };
+
     const render = () => {
-      // ONLY render if hero is visible in viewport and tab is active
-      if (isIntersecting && isTabVisible) {
-        const elapsedTime = (performance.now() - startTime) * 0.001;
-
-        // Soft mouse interpolation for organic spring feel
-        mouseX += (targetMouseX - mouseX) * 0.05;
-        mouseY += (targetMouseY - mouseY) * 0.05;
-
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
-        gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
-        gl.uniform1f(uTimeLoc, elapsedTime);
-        gl.uniform2f(uMouseLoc, mouseX * dpr, mouseY * dpr);
-        gl.uniform1f(uIsLightLoc, theme === 'light' ? 1.0 : 0.0);
-
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
+      // ONLY render if hero is visible in viewport, tab is active, no modal is covering, and reduced motion is off
+      if (isIntersecting && isTabVisible && !isModalOpen && !prefersReducedMotion) {
+        drawFrame();
         animationFrameId = requestAnimationFrame(render);
       } else {
         // Stopped: idle until scrolled back into view
@@ -260,7 +266,7 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
     };
 
     const startRenderLoop = () => {
-      if (!animationFrameId && isIntersecting && isTabVisible) {
+      if (!animationFrameId && isIntersecting && isTabVisible && !isModalOpen && !prefersReducedMotion) {
         animationFrameId = requestAnimationFrame(render);
       }
     };
@@ -282,13 +288,13 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
           stopRenderLoop();
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.0 }
     );
     observer.observe(container);
 
     const handleVisibilityChange = () => {
       isTabVisible = document.visibilityState === 'visible';
-      if (isTabVisible && isIntersecting) {
+      if (isTabVisible && isIntersecting && !isModalOpen && !prefersReducedMotion) {
         startRenderLoop();
       } else {
         stopRenderLoop();
@@ -297,7 +303,11 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Initial kick-off
-    startRenderLoop();
+    if (prefersReducedMotion) {
+      drawFrame();
+    } else {
+      startRenderLoop();
+    }
 
     // Cleanup
     return () => {
@@ -311,7 +321,7 @@ export default function FlowShaderCanvas({ theme = 'dark' }) {
       if (vertexShader) gl.deleteShader(vertexShader);
       if (fragmentShader) gl.deleteShader(fragmentShader);
     };
-  }, [theme]);
+  }, [theme, isModalOpen]);
 
   return (
     <div ref={containerRef} className="hero-flow-shader-container" aria-hidden="true">

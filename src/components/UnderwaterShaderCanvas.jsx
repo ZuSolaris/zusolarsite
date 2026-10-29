@@ -109,7 +109,7 @@ const fragmentShaderSource = `
   }
 `;
 
-export default function UnderwaterShaderCanvas({ theme = 'dark' }) {
+export default function UnderwaterShaderCanvas({ theme = 'dark', isModalOpen = false }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -184,7 +184,8 @@ export default function UnderwaterShaderCanvas({ theme = 'dark' }) {
     let targetMouseX = mouseX;
     let targetMouseY = mouseY;
     let scrollDepth = 0.0;
-    let isTabVisible = true;
+    let isTabVisible = document.visibilityState === 'visible';
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
 
     const handleMouseMove = (e) => {
       targetMouseX = e.clientX;
@@ -199,11 +200,6 @@ export default function UnderwaterShaderCanvas({ theme = 'dark' }) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    const handleVisibilityChange = () => {
-      isTabVisible = document.visibilityState === 'visible';
-    };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
     // Resize handler (capped DPR for optimal 60fps power efficiency)
     const resizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
@@ -214,35 +210,70 @@ export default function UnderwaterShaderCanvas({ theme = 'dark' }) {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Render loop
-    let animationFrameId;
+    // Render loop with power-saving pause controls
+    let animationFrameId = null;
     const startTime = performance.now();
 
-    const render = () => {
-      if (isTabVisible) {
-        const elapsedTime = (performance.now() - startTime) * 0.001;
+    const drawFrame = () => {
+      const elapsedTime = (performance.now() - startTime) * 0.001;
 
-        mouseX += (targetMouseX - mouseX) * 0.04;
-        mouseY += (targetMouseY - mouseY) * 0.04;
+      mouseX += (targetMouseX - mouseX) * 0.04;
+      mouseY += (targetMouseY - mouseY) * 0.04;
 
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
-        gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
-        gl.uniform1f(uTimeLoc, elapsedTime);
-        gl.uniform2f(uMouseLoc, mouseX * dpr, mouseY * dpr);
-        gl.uniform1f(uIsLightLoc, theme === 'light' ? 1.0 : 0.0);
-        gl.uniform1f(uScrollDepthLoc, scrollDepth);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
+      gl.uniform1f(uTimeLoc, elapsedTime);
+      gl.uniform2f(uMouseLoc, mouseX * dpr, mouseY * dpr);
+      gl.uniform1f(uIsLightLoc, theme === 'light' ? 1.0 : 0.0);
+      gl.uniform1f(uScrollDepthLoc, scrollDepth);
 
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
-      }
-
-      animationFrameId = requestAnimationFrame(render);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
     };
 
-    render();
+    const render = () => {
+      // ONLY render if tab is active, no modal is covering the screen, and reduced motion is off
+      if (isTabVisible && !isModalOpen && !prefersReducedMotion) {
+        drawFrame();
+        animationFrameId = requestAnimationFrame(render);
+      } else {
+        // Paused: halt requestAnimationFrame completely
+        animationFrameId = null;
+      }
+    };
+
+    const startRenderLoop = () => {
+      if (!animationFrameId && isTabVisible && !isModalOpen && !prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
+    const stopRenderLoop = () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      isTabVisible = document.visibilityState === 'visible';
+      if (isTabVisible && !isModalOpen && !prefersReducedMotion) {
+        startRenderLoop();
+      } else {
+        stopRenderLoop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // Initial draw
+    if (prefersReducedMotion) {
+      drawFrame();
+    } else {
+      startRenderLoop();
+    }
 
     // Cleanup
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopRenderLoop();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', resizeCanvas);
@@ -252,7 +283,7 @@ export default function UnderwaterShaderCanvas({ theme = 'dark' }) {
       if (vertexShader) gl.deleteShader(vertexShader);
       if (fragmentShader) gl.deleteShader(fragmentShader);
     };
-  }, [theme]);
+  }, [theme, isModalOpen]);
 
   return (
     <div className="underwater-shader-container" aria-hidden="true">
