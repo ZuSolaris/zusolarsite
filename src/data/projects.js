@@ -28,6 +28,20 @@ export const projects = [
     summary: 'A handheld study companion device that requires two or more students to bond and nurture a virtual creature through shared rituals. Engineered like a hardware AND logic gate—both students have to show up, or the creature degrades into a "Husk". Features an exact $19.38 BOM, ESP32-S3 microcontroller, zero-app NFC pairing, haptic feedback, and a faculty steward administration mode.',
     problem: 'Overwhelmed freshmen and transfer college students frequently leave their friendships at old institutions. While sitting in the same lectures and becoming familiar with peers, social overwhelm and fear of awkwardness create friction, letting budding friendships quietly pass.',
     solution: 'Designed the "BUD-E" system: a physical device pair operating like an AND logic gate. Neither student is enough alone. Paired via zero-app NFC handshakes, both students must show up to raise their virtual companion. Consistent co-presence unlocks animations, outfits, and prestige ranks, while neglect triggers the "Husk" degradation state—recoverable only through shared real-world interaction.',
+    spotlightArtifacts: [
+      {
+        title: '9-Panel User Journey & Co-Presence Storyboard',
+        tag: 'UX Research & Storyboard',
+        caption: 'Visualizes how two unfamiliar students transition from awkward lecture hall proximity to shared micro-rituals through device interaction.',
+        image: '/projects/husk-e/storyboard_9_panel.png'
+      },
+      {
+        title: 'Behavioral State Machine & Emotion Engine Architecture',
+        tag: 'Interaction & Systems Logic',
+        caption: 'Complete state machine: NFC handshake pairing, active co-presence nurturing loops, neglect thresholds, and real-world recovery states.',
+        image: '/projects/husk-e/ux_flow_emotion_engine.png'
+      }
+    ],
     reflection: 'The most complex part isn\'t technical—it\'s behavioral. If Husk-E demands too much attention it becomes another screen distraction; too little and it\'s a gimmick forgotten by week two. The creature has to create a genuine function of need that requires both students to show up, but never becomes more interesting than the human being sitting next to you. The goal was never the creature—it was always the friendship.',
     quote: 'Each device runs on a BUD-E system—think of it like an AND logic gate. Both students have to show up. Neither one is enough alone. The BUD-E system turns showing up for your pet into showing up for each other.',
     friendshipPhases: ['Exposure & Propinquity', 'Time Spent Together', 'Reciprocity', 'Self-Disclosure', 'Ritual', 'Tolerance'],

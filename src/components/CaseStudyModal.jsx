@@ -190,6 +190,49 @@ export default function CaseStudyModal({ project, projects = [], onSelectProject
             </div>
           </div>
 
+          {/* Featured Spotlight UX Artifacts (Storyboard & Behavioral Flow) */}
+          {project.spotlightArtifacts && project.spotlightArtifacts.length > 0 && (
+            <div className="modal-spotlight-section">
+              <div className="spotlight-header-row">
+                <div>
+                  <h4 className="section-mini-heading">Interaction Architecture & Storyboards</h4>
+                  <p className="spotlight-section-subtitle">Visualizing peer co-presence rituals and behavioral state machine logic.</p>
+                </div>
+                <span className="pill-badge award">Core UX Process</span>
+              </div>
+              <div className="modal-spotlight-grid">
+                {project.spotlightArtifacts.map((artifact, sIdx) => (
+                  <div
+                    key={sIdx}
+                    className="spotlight-artifact-card glass-panel"
+                    onClick={() => setSelectedImage(artifact.image)}
+                    title="Click to inspect full resolution diagram"
+                  >
+                    <div className="spotlight-artifact-meta">
+                      <span className="pill-badge subtle">{artifact.tag || 'UX Artifact'}</span>
+                      <span className="spotlight-zoom-indicator">
+                        <ZoomIn size={14} />
+                        <span>Enlarge Schematic</span>
+                      </span>
+                    </div>
+                    <div className="spotlight-img-frame">
+                      <img
+                        src={artifact.image}
+                        alt={artifact.title}
+                        className="spotlight-artifact-img"
+                        loading="eager"
+                      />
+                    </div>
+                    <div className="spotlight-info">
+                      <h5 className="spotlight-card-title">{artifact.title}</h5>
+                      <p className="spotlight-card-desc">{artifact.caption}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Feasibility & BOM Analysis */}
           {project.feasibility && (
             <div className="modal-feasibility-section glass-panel">
@@ -251,11 +294,15 @@ export default function CaseStudyModal({ project, projects = [], onSelectProject
           {project.galleryImages && project.galleryImages.length > 0 && (
             <div className="modal-gallery-section">
               <div className="gallery-header-row">
-                <h4 className="section-mini-heading">Process Artifacts & Schematics</h4>
-                <span className="gallery-count-badge">{project.galleryImages.length} Artifacts</span>
+                <h4 className="section-mini-heading">Process Artifacts & Engineering Schematics</h4>
+                <span className="gallery-count-badge">
+                  {project.galleryImages.filter(img => !project.spotlightArtifacts?.some(a => a.image === img)).length} Additional Artifacts
+                </span>
               </div>
               <div className="modal-gallery-grid">
-                {project.galleryImages.map((img, idx) => (
+                {project.galleryImages
+                  .filter(img => !project.spotlightArtifacts?.some(a => a.image === img))
+                  .map((img, idx) => (
                   <div 
                     key={idx} 
                     className="gallery-thumb-card" 

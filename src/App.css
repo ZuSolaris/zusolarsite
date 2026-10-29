@@ -3088,6 +3088,123 @@
   color: var(--text-secondary);
 }
 
+/* ==========================================================================
+   FEATURED SPOTLIGHT UX ARTIFACTS (Storyboard & Emotion Engine)
+   ========================================================================== */
+.modal-spotlight-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0.5rem 0 1.25rem 0;
+}
+
+.spotlight-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.spotlight-section-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.modal-spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .modal-spotlight-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.spotlight-artifact-card {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  border-radius: var(--radius-lg);
+  cursor: zoom-in;
+  transition: all var(--duration-normal) var(--ease-spring);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+}
+
+.spotlight-artifact-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-polycarbonate-hover);
+}
+
+.spotlight-artifact-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spotlight-zoom-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--text-accent);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.spotlight-img-frame {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(4, 9, 16, 0.6);
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-subtle);
+}
+
+[data-theme='light'] .spotlight-img-frame {
+  background: rgba(235, 243, 248, 0.7);
+}
+
+.spotlight-artifact-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform var(--duration-normal) ease;
+}
+
+.spotlight-artifact-card:hover .spotlight-artifact-img {
+  transform: scale(1.02);
+}
+
+.spotlight-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.spotlight-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.spotlight-card-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 /* Process Schematics Gallery */
 .modal-gallery-section {
   display: flex;
