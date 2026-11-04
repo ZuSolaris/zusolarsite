@@ -26,6 +26,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
 
         {/* Desktop Navigation Links inside Recessed Chassis Tray */}
         <div className="nav-links nav-socket-tray">
+          <a href="#husk-e-showcase" className="nav-link nav-keycap">HUSK-E</a>
           <a href="#projects" className="nav-link nav-keycap">Case Studies</a>
           <a href="#bio" className="nav-link nav-keycap">About & Story</a>
           <button onClick={onOpenDesignTokens} className="nav-link nav-keycap tokens-btn" title="View Design System Tokens">
@@ -72,6 +73,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="mobile-drawer glass-panel">
+          <a href="#husk-e-showcase" onClick={() => setMobileMenuOpen(false)} className="mobile-link">HUSK-E Showcase</a>
           <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="mobile-link">Case Studies</a>
           <a href="#bio" onClick={() => setMobileMenuOpen(false)} className="mobile-link">About & Story</a>
           <button

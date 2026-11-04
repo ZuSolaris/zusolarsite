@@ -8,6 +8,7 @@ import BioStory from './components/BioStory';
 import Footer from './components/Footer';
 import CaseStudyModal from './components/CaseStudyModal';
 import DesignTokensViewer from './components/DesignTokensViewer';
+import HuskEShowcase from './components/HuskEShowcase';
 import { projects } from './data/projects';
 import './App.css';
 
@@ -49,6 +50,14 @@ export default function App() {
       <main>
         {/* Hero Section with Zoe's Story & Accolades */}
         <Hero />
+
+        {/* Dedicated HUSK-E Interactive Showcase (The Physical AND Gate & Emotional Hook) */}
+        <HuskEShowcase 
+          onOpenCaseStudy={() => {
+            const huskE = projects.find(p => p.id === 'husk-e');
+            if (huskE) setSelectedProject(huskE);
+          }}
+        />
 
         {/* Featured Case Studies Grid with Category Filtering */}
         <ProjectGrid onSelectProject={setSelectedProject} />

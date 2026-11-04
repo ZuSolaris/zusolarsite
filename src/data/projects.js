@@ -86,7 +86,7 @@ export const projects = [
     howMightWe: 'Build an automated image-analysis pipeline to evaluate nanoscale material patterns and optimize thermal efficiency for next-generation computing substrates?',
     summary: 'Undergraduate research at University of Washington & Clean Energy Institute. Evaluated micro-scale material patterns (h-BN, Graphene, MoTe₂) to optimize thermal dissipation, built a 0.67 nm/pixel GNU Octave metrology pipeline, and proposed Tesla valve fluidic test geometry. Awarded Best Research in Engineering at PNW LSAMP.',
     problem: 'Traditional spider electrode geometries made it nearly impossible to isolate and calculate rates of Fickian diffusion under extreme temperature and pressure variations, slowing down semiconductor research by hundreds of lab hours.',
-    solution: 'Engineered an image-analysis pipeline in GNU Octave converting raw microscope imagery to spatial data at 0.67 nanometers per pixel. Devised directional circuit geometry inspired by Nikola Tesla’s Tesla Valve to eliminate moving-part wear while channeling fluidic flow.',
+    solution: 'Engineered an image-analysis pipeline in GNU Octave converting raw microscope imagery to spatial data at 0.67 nanometers per pixel. Devised directional circuit geometry inspired by Nikola Tesla’s Tesla Valve to slow down movement over an equal distance while channeling fluidic flow.',
     reflection: 'This kind of material-level optimization isn\'t just theoretical—it is mandatory for the future of AI and high-density computing. Presented findings at SACNAS and won Best in Engineering at PNW LSAMP.',
     quote: 'I built an image-analysis pipeline in GNU Octave, converting microscope imagery to spatial data at 0.67 nanometers per pixel.',
     tags: ['UW Research', 'GNU Octave Pipeline', 'Nano-Metrology', 'Thermal Efficiency', 'SACNAS / LSAMP'],
@@ -95,7 +95,7 @@ export const projects = [
   {
     id: 'printed-home',
     title: 'Modular 3D-Printed Housing',
-    subtitle: 'Human-Centered Spatial Design & Computer Vision Ergonomics | STEMTAC',
+    subtitle: 'Human-Centered Spatial Design & Ergonomics | STEMTAC Foundation',
     category: 'Spatial & 3D',
     timeframe: 'Jan - Jun 2024',
     featured: true,
