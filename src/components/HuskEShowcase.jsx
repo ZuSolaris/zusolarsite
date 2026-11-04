@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Users, Sparkles, Zap, Heart, Clock, Shield, Cpu,
-  ChevronRight, ArrowRight, Eye, Terminal, Wifi, Battery, Award
+  ChevronRight, ArrowRight, Terminal, Wifi, Award
 } from 'lucide-react';
 import './HuskEShowcase.css';
 
@@ -756,7 +756,20 @@ export default function HuskEShowcase({ onOpenCaseStudy }) {
 
             {/* Bottom Actions Row: Modal trigger + CAD Drawer toggle */}
             <div className="showcase-bottom-actions">
-
+              <button
+                className="btn btn-frutiger-solar btn-md"
+                onClick={onOpenCaseStudy}
+              >
+                <span>Read Full HUSK-E Case Study</span>
+                <ArrowRight size={16} />
+              </button>
+              <button
+                className="btn btn-frutiger-outline btn-md"
+                onClick={() => setHardwareDrawerOpen(!hardwareDrawerOpen)}
+              >
+                <Cpu size={16} />
+                <span>{hardwareDrawerOpen ? 'Hide CAD Blueprints' : 'View CAD Blueprints & Slices'}</span>
+              </button>
             </div>
 
           </div>

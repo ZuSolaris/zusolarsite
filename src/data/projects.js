@@ -229,7 +229,6 @@ export const personalBio = {
   name: 'Zoe Unica Solaris',
   location: 'Seattle, WA',
   email: 'z@zusolaris.space',
-  phone: '206-532-7742',
   linkedin: 'https://linkedin.com/in/zusolaris',
   website: 'https://zusolaris.space',
   role: 'Interaction Designer & Systems Researcher',

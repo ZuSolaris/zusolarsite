@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight, FileText } from 'lucide-react';
 
-export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
+export default function Navbar({ theme, toggleTheme, onOpenDesignTokens, onOpenHuskShowcase }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -20,18 +20,22 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
           <img src="/logo.png" alt="Zoe Solaris Logo" className="nav-brand-logo frutiger-solar-badge" />
           <div className="brand-text">
             <span className="brand-name">Zoe Solaris</span>
-            <span className="brand-title">IxD & Systems • Solar Aero</span>
+            <span className="brand-title">IxD &amp; Systems • Solar Aero</span>
           </div>
         </a>
 
         {/* Desktop Navigation Links inside Recessed Chassis Tray */}
         <div className="nav-links nav-socket-tray">
-          <a href="#husk-e-showcase" className="nav-link nav-keycap">HUSK-E</a>
+          <button onClick={onOpenHuskShowcase} className="nav-link nav-keycap">HUSK-E</button>
           <a href="#projects" className="nav-link nav-keycap">Case Studies</a>
-          <a href="#bio" className="nav-link nav-keycap">About & Story</a>
+          <a href="#bio" className="nav-link nav-keycap">About &amp; Story</a>
           <button onClick={onOpenDesignTokens} className="nav-link nav-keycap tokens-btn" title="View Design System Tokens">
             Design Tokens <span className="mono-tag">Solar Aero</span>
           </button>
+          <a href="/Solaris_Zoe_Resume.pdf" target="_blank" rel="noreferrer" className="nav-link nav-keycap tokens-btn" title="Download Resume">
+            <FileText size={14} />
+            Resume
+          </a>
         </div>
 
         {/* Desktop Actions inside Distinct Socket Cutouts */}
@@ -46,8 +50,6 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
               {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
             </button>
           </div>
-
-
 
           <div className="button-socket desktop-only-socket">
             <a
@@ -73,17 +75,19 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens }) {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="mobile-drawer glass-panel">
-          <a href="#husk-e-showcase" onClick={() => setMobileMenuOpen(false)} className="mobile-link">HUSK-E Showcase</a>
+          <button onClick={() => { onOpenHuskShowcase(); setMobileMenuOpen(false); }} className="mobile-link text-left">HUSK-E Showcase</button>
           <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="mobile-link">Case Studies</a>
-          <a href="#bio" onClick={() => setMobileMenuOpen(false)} className="mobile-link">About & Story</a>
+          <a href="#bio" onClick={() => setMobileMenuOpen(false)} className="mobile-link">About &amp; Story</a>
           <button
             onClick={() => { onOpenDesignTokens(); setMobileMenuOpen(false); }}
             className="mobile-link text-left"
           >
             Design Tokens Spec (Solar Aero)
           </button>
+          <a href="/Solaris_Zoe_Resume.pdf" target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="mobile-link">
+            Resume (PDF)
+          </a>
           <div className="mobile-actions">
-
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}

@@ -81,7 +81,7 @@ export default function Footer() {
               </svg>
               <span>linkedin.com/in/zusolaris</span>
             </a>
-            <a href="https://itch.io" target="_blank" rel="noreferrer" className="footer-link">
+            <a href="https://zusolaris.itch.io/melon-laughs-at-dopamine-addicts" target="_blank" rel="noreferrer" className="footer-link">
               <ExternalLink size={14} />
               <span>Melon on Itch.io</span>
             </a>
