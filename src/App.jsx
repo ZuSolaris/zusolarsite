@@ -78,18 +78,18 @@ export default function App() {
                   HUSK-E <span className="title-divider">•</span> <span className="gradient-text">The Physical AND Gate</span>
                 </h3>
                 <p className="husk-teaser-desc">
-                  Handheld pro-social companion for UW freshmen. Engineered with ESP32-S3 ($19.38 BOM), zero-app NFC pairing, and a 6-phase friendship state machine.
+                  Handheld adaptive companion for UW freshmen. Designed around the ESP32 microcontroller, zero-app NFC pairing, and a 6-phase friendship state machine.
                 </p>
               </div>
               <div className="husk-teaser-actions">
-                <button 
+                <button
                   onClick={() => setHuskShowcaseOpen(true)}
                   className="btn btn-frutiger-solar btn-md"
                 >
                   <Sparkles size={16} />
                   <span>Launch 1:1 Simulator</span>
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     const huskE = projects.find(p => p.id === 'husk-e');
                     if (huskE) setSelectedProject(huskE);
@@ -105,8 +105,8 @@ export default function App() {
         </section>
 
         {/* Featured Case Studies Grid with Category Filtering */}
-        <ProjectGrid 
-          onSelectProject={setSelectedProject} 
+        <ProjectGrid
+          onSelectProject={setSelectedProject}
           onOpenHuskShowcase={() => setHuskShowcaseOpen(true)}
         />
 
@@ -136,15 +136,15 @@ export default function App() {
 
       {/* 1:1 Interactive HUSK-E Showcase Fullscreen Modal Overlay */}
       {huskShowcaseOpen && (
-        <div 
-          className="modal-overlay" 
+        <div
+          className="modal-overlay"
           onClick={() => setHuskShowcaseOpen(false)}
           role="dialog"
           aria-modal="true"
           aria-label="HUSK-E Interactive Showcase"
         >
-          <div 
-            className="modal-container glass-panel" 
+          <div
+            className="modal-container glass-panel husk-simulator-modal"
             style={{ maxWidth: '1180px', maxHeight: '92vh', width: '96%' }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -156,16 +156,16 @@ export default function App() {
                   <span>1:1 Interactive Simulator</span>
                 </span>
               </div>
-              <button 
-                onClick={() => setHuskShowcaseOpen(false)} 
-                className="modal-close-btn" 
+              <button
+                onClick={() => setHuskShowcaseOpen(false)}
+                className="modal-close-btn"
                 aria-label="Close Showcase"
               >
                 <X size={20} />
               </button>
             </header>
             <div className="modal-body-scroll" style={{ padding: '0 0 2rem' }}>
-              <HuskEShowcase 
+              <HuskEShowcase
                 onOpenCaseStudy={() => {
                   setHuskShowcaseOpen(false);
                   const huskE = projects.find(p => p.id === 'husk-e');

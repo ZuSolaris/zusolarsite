@@ -162,7 +162,7 @@ export default function HuskEShowcase({ onOpenCaseStudy }) {
           </h2>
 
           <p className="showcase-quote">
-            "They don’t need to learn how to make friends — <strong>they just need a spark.</strong>"
+            "They don’t need to learn how to make friends...<strong>they just need a spark.</strong>"
           </p>
 
           <p className="showcase-subtext">
@@ -245,7 +245,7 @@ export default function HuskEShowcase({ onOpenCaseStudy }) {
 
             {viewMode === 'render' ? (
               /* High-Res 3D Spline Render View */
-              <div className="device-render-photo-wrapper glass-panel">
+              <div className="device-render-photo-wrapper showcase-glass-card">
                 <img
                   src="/projects/husk-e/hero_spline_render.png"
                   alt="HUSK-E Spline 3D Render"
@@ -531,7 +531,7 @@ export default function HuskEShowcase({ onOpenCaseStudy }) {
             {activeTab === 'story' && (
               <div className="tab-pane-content fade-in">
 
-                <div className="story-card-highlight glass-panel">
+                <div className="story-card-highlight showcase-glass-card">
                   <div className="story-card-top">
                     <span className="story-pill">Core Psychological Insight</span>
                     <span className="story-author">Zoe Solaris IxD Framework</span>
@@ -616,7 +616,7 @@ export default function HuskEShowcase({ onOpenCaseStudy }) {
             {/* TAB 2: THE 6 PHASES OF FRIENDSHIP MATRIX */}
             {activeTab === 'matrix' && (
               <div className="tab-pane-content fade-in">
-                <div className="matrix-explainer glass-panel">
+                <div className="matrix-explainer showcase-glass-card">
                   <p className="matrix-summary">
                     Psychological research shows that adult friendships require roughly <strong>50 hours of co-presence</strong>
                     to transition from acquaintance to casual friend, and <strong>200 hours</strong> for a close friend.
@@ -656,7 +656,7 @@ export default function HuskEShowcase({ onOpenCaseStudy }) {
             {/* TAB 3: $19.38 BOM & FEASIBILITY */}
             {activeTab === 'hardware' && (
               <div className="tab-pane-content fade-in">
-                <div className="hardware-hero-card glass-panel">
+                <div className="hardware-hero-card showcase-glass-card">
                   <div className="bom-highlight-badge">
                     <Award size={16} />
                     <span>Feasibility Score: $19.38 Actual BOM / $20.00 Target</span>
@@ -778,7 +778,7 @@ export default function HuskEShowcase({ onOpenCaseStudy }) {
 
         {/* EXPANDABLE PHYSICAL CAD & BLUEPRINT DRAWER */}
         {hardwareDrawerOpen && (
-          <div className="hardware-cad-drawer glass-panel fade-in">
+          <div className="hardware-cad-drawer showcase-glass-card fade-in">
             <div className="cad-drawer-header">
               <div>
                 <span className="cad-tag">Industrial Design & Physical Slices</span>

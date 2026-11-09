@@ -3617,7 +3617,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 2rem;
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
   background: linear-gradient(135deg, rgba(15, 21, 35, 0.9) 0%, rgba(22, 30, 51, 0.8) 100%);
 }
 
@@ -5564,10 +5564,12 @@
   .husk-teaser-card {
     padding: 1.4rem 1.5rem;
   }
+
   .husk-teaser-actions {
     width: 100%;
     margin-top: 0.5rem;
   }
+
   .husk-teaser-actions .btn {
     flex: 1;
     min-width: 140px;
@@ -5631,10 +5633,12 @@
   .husk-teaser-card {
     padding: 1.4rem 1.5rem;
   }
+
   .husk-teaser-actions {
     width: 100%;
     margin-top: 0.5rem;
   }
+
   .husk-teaser-actions .btn {
     flex: 1;
     min-width: 140px;
