@@ -45,17 +45,69 @@
   --radius-xl: 28px;
   --radius-full: 9999px;
 
+  /* 4px Spatial Grid System (Tier 1 Spacing Primitives) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1.0rem;   /* 16px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2.0rem;   /* 32px */
+  --space-12: 3.0rem;  /* 48px */
+  --space-16: 4.0rem;  /* 64px */
+
   /* Shadows & Elevations */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 24px rgba(56, 189, 248, 0.2);
 
-  /* Transitions */
+  /* Transitions & Motion Primitives */
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
   --duration-normal: 250ms;
   --duration-slow: 400ms;
+  --motion-duration-fast: 150ms;
+  --motion-duration-normal: 250ms;
+  --motion-duration-slow: 400ms;
+
+  /* ==========================================================================
+     TIER 1: GLOBAL PRIMITIVE TOKENS (Constants)
+     ========================================================================== */
+  --color-primitive-cobalt-500: #5362ff;
+  --color-primitive-azure-400: #82d1f5;
+  --color-primitive-cyan-500: #00bcd4;
+  --color-primitive-ice-100: #e6edf2;
+  --color-primitive-violet-600: #7c3aed;
+  --color-primitive-violet-700: #6d28d9;
+  --color-primitive-void-950: #090c14;
+  --color-primitive-slate-900: #0f1523;
+  --color-primitive-slate-800: #161e33;
+  --color-primitive-white: #ffffff;
+
+  /* ==========================================================================
+     TIER 2: SEMANTIC ALIAS TOKENS (Contextual Intent - Dark Void Default)
+     ========================================================================== */
+  --color-surface-base: var(--bg-primary);
+  --color-surface-elevated: var(--bg-secondary);
+  --color-surface-glass: var(--bg-glass);
+  --color-surface-frosted-card: rgba(10, 25, 35, 0.75);
+  --color-text-brand: var(--accent-cyan);
+  --color-action-solar: linear-gradient(135deg, #5362ff 0%, #82d1f5 100%);
+  --color-action-active: #7c3aed;
+
+  /* ==========================================================================
+     TIER 3: COMPONENT SCOPED TOKENS ({component}-{property}-{variant}-{state})
+     ========================================================================== */
+  --button-radius-pill: var(--radius-full);
+  --button-shadow-solar-default: var(--shadow-jelly-pill);
+  --button-shadow-solar-active: var(--shadow-jelly-pill-depressed);
+  --panel-radius-chassis: var(--radius-xl);
+  --panel-lip-bevel-shadow: var(--shadow-polycarbonate-lip);
+  --panel-lip-bevel-hover: var(--shadow-polycarbonate-hover);
+  --simulator-shell-chassis: #875ede;
+  --simulator-screen-bg: #000000;
+  --simulator-screen-text: #ffffff;
 
   /* ==========================================================================
      SOLAR AERO: TRANSLUCENT MATTE POLYCARBONATE DESIGN TOKENS
@@ -120,6 +172,15 @@
   --bg-elevated: rgba(0, 75, 95, 0.78);
   --bg-glass: rgba(24, 204, 224, 0.55);
   --bg-glass-hover: rgba(0, 168, 190, 0.65);
+
+  /* Tier 2 Semantic Aliases - Bondi Jewel Theme */
+  --color-surface-base: var(--bg-primary);
+  --color-surface-elevated: var(--bg-secondary);
+  --color-surface-glass: var(--bg-glass);
+  --color-surface-frosted-card: rgba(255, 255, 255, 0.95);
+  --color-text-brand: #7c3aed;
+  --color-action-solar: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+  --color-action-active: #6d28d9;
 
   --border-subtle: rgba(78, 240, 248, 0.35);
   --border-active: rgba(0, 188, 212, 0.7);
