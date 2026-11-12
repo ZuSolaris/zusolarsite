@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, ArrowUpRight, FileText } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight, FileText, ArrowLeft } from 'lucide-react';
 
-export default function Navbar({ theme, toggleTheme, onOpenDesignTokens, onOpenHuskShowcase }) {
+export default function Navbar({
+  theme,
+  toggleTheme,
+  onOpenDesignTokens,
+  onOpenHuskShowcase,
+  selectedProject,
+  onBackToHome
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -13,10 +20,28 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens, onOpenH
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleBrandClick = (e) => {
+    if (selectedProject && onBackToHome) {
+      e.preventDefault();
+      onBackToHome();
+    }
+  };
+
+  const handleNavAnchorClick = (e, hash) => {
+    if (selectedProject && onBackToHome) {
+      e.preventDefault();
+      onBackToHome();
+      setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 60);
+    }
+  };
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''} frutiger-solar-nav`}>
       <div className="container nav-content">
-        <a href="#hero" className="nav-brand">
+        <a href="#hero" className="nav-brand" onClick={handleBrandClick}>
           <img src="/logo.png" alt="Zoe Solaris Logo" className="nav-brand-logo frutiger-solar-badge" />
           <div className="brand-text">
             <span className="brand-name">Zoe Solaris</span>
@@ -26,9 +51,22 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens, onOpenH
 
         {/* Desktop Navigation Links inside Recessed Chassis Tray */}
         <div className="nav-links nav-socket-tray">
+          {selectedProject ? (
+            <button onClick={onBackToHome} className="nav-link nav-keycap highlighted-back">
+              <ArrowLeft size={14} className="inline-icon" />
+              <span>All Case Studies</span>
+            </button>
+          ) : (
+            <a href="#projects" className="nav-link nav-keycap">Case Studies</a>
+          )}
           <button onClick={onOpenHuskShowcase} className="nav-link nav-keycap">HUSK-E</button>
-          <a href="#projects" className="nav-link nav-keycap">Case Studies</a>
-          <a href="#bio" className="nav-link nav-keycap">About &amp; Story</a>
+          <a
+            href="#bio"
+            className="nav-link nav-keycap"
+            onClick={(e) => handleNavAnchorClick(e, '#bio')}
+          >
+            About &amp; Story
+          </a>
           <button onClick={onOpenDesignTokens} className="nav-link nav-keycap tokens-btn" title="View Design System Tokens">
             Design Tokens <span className="mono-tag">Solar Aero</span>
           </button>
@@ -55,6 +93,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens, onOpenH
             <a
               href="#contact"
               className="btn btn-frutiger-solar btn-sm btn-socket-inner"
+              onClick={(e) => handleNavAnchorClick(e, '#contact')}
             >
               <span>Get in Touch</span>
               <ArrowUpRight size={14} />
@@ -75,9 +114,30 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens, onOpenH
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="mobile-drawer glass-panel">
+          {selectedProject ? (
+            <button
+              onClick={() => { onBackToHome(); setMobileMenuOpen(false); }}
+              className="mobile-link text-left"
+            >
+              ← Back to All Case Studies
+            </button>
+          ) : (
+            <a
+              href="#projects"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mobile-link"
+            >
+              Case Studies
+            </a>
+          )}
           <button onClick={() => { onOpenHuskShowcase(); setMobileMenuOpen(false); }} className="mobile-link text-left">HUSK-E Showcase</button>
-          <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="mobile-link">Case Studies</a>
-          <a href="#bio" onClick={() => setMobileMenuOpen(false)} className="mobile-link">About &amp; Story</a>
+          <a
+            href="#bio"
+            onClick={(e) => { handleNavAnchorClick(e, '#bio'); setMobileMenuOpen(false); }}
+            className="mobile-link"
+          >
+            About &amp; Story
+          </a>
           <button
             onClick={() => { onOpenDesignTokens(); setMobileMenuOpen(false); }}
             className="mobile-link text-left"
@@ -90,7 +150,7 @@ export default function Navbar({ theme, toggleTheme, onOpenDesignTokens, onOpenH
           <div className="mobile-actions">
             <a
               href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => { handleNavAnchorClick(e, '#contact'); setMobileMenuOpen(false); }}
               className="btn btn-frutiger-outline btn-block"
             >
               <span>Get in Touch</span>

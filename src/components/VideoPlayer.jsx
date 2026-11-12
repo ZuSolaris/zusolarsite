@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, X, ExternalLink, Maximize2, Film } from 'lucide-react';
+import { Play, X, Maximize2, Film } from 'lucide-react';
 
 /**
  * Extracts YouTube video ID from various URL patterns:

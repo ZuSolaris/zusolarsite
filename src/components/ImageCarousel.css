@@ -1,0 +1,481 @@
+/* ==========================================================================
+   IMAGE CAROUSEL COMPONENT STYLES (Solar Aero Design System)
+   ========================================================================== */
+
+.image-carousel-component {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+.carousel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.carousel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin: 0;
+  font-weight: 700;
+}
+
+.carousel-title .inline-icon {
+  color: var(--accent-cyan);
+}
+
+.carousel-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0;
+}
+
+.carousel-counter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: rgba(83, 98, 255, 0.15);
+  border: 1px solid rgba(130, 209, 245, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+.carousel-counter-badge .current-num {
+  color: #ffffff;
+}
+
+.carousel-counter-badge .counter-sep {
+  opacity: 0.5;
+}
+
+.carousel-counter-badge .total-num {
+  color: var(--accent-indigo);
+}
+
+/* Main Slide Stage */
+.carousel-stage {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(4, 15, 24, 0.8);
+  border: 1px solid var(--border-subtle);
+  box-shadow:
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.45),
+    0 12px 36px -4px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.carousel-img-frame {
+  position: relative;
+  width: 100%;
+  max-height: 540px;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 50%, rgba(15, 25, 40, 0.6) 0%, rgba(5, 10, 18, 0.95) 100%);
+  cursor: zoom-in;
+  overflow: hidden;
+}
+
+.carousel-active-img {
+  max-width: 100%;
+  max-height: 540px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.carousel-img-frame:hover .carousel-active-img {
+  transform: scale(1.015);
+}
+
+/* Stage Top Bar Overlay */
+.carousel-stage-topbar {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: auto;
+  z-index: 5;
+}
+
+.carousel-tag-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: rgba(4, 20, 30, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+}
+
+.carousel-zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 600;
+  background: rgba(4, 20, 30, 0.75);
+  border: 1px solid rgba(130, 209, 245, 0.35);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.carousel-zoom-btn:hover {
+  background: rgba(83, 98, 255, 0.45);
+  border-color: var(--accent-cyan);
+}
+
+/* Stage Navigation Buttons */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 6;
+  border: none;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.4),
+    0 6px 16px rgba(0, 0, 0, 0.45);
+  transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.carousel-nav-btn:hover {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow:
+    inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.4),
+    0 8px 24px rgba(83, 98, 255, 0.45);
+}
+
+.carousel-nav-btn:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.carousel-nav-btn.prev-btn {
+  left: 1rem;
+}
+
+.carousel-nav-btn.next-btn {
+  right: 1rem;
+}
+
+/* Caption Card */
+.carousel-caption-card {
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(10, 25, 38, 0.55);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.caption-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.caption-description {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Thumbnail Scrub Rail */
+.carousel-thumb-rail-wrapper {
+  width: 100%;
+  overflow: hidden;
+  padding: 0.25rem 0;
+}
+
+.carousel-thumb-rail {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 0.5rem;
+}
+
+.carousel-thumb-rail::-webkit-scrollbar {
+  height: 4px;
+}
+
+.carousel-thumb-rail::-webkit-scrollbar-thumb {
+  background: rgba(130, 209, 245, 0.3);
+  border-radius: 4px;
+}
+
+.carousel-thumb-btn {
+  position: relative;
+  flex: 0 0 84px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--duration-fast);
+}
+
+.carousel-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  transition: opacity var(--duration-fast);
+}
+
+.carousel-thumb-btn:hover img {
+  opacity: 0.9;
+}
+
+.carousel-thumb-btn.active {
+  border-color: var(--accent-cyan);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    0 0 14px rgba(83, 98, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.carousel-thumb-btn.active img {
+  opacity: 1;
+}
+
+.thumb-idx {
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  padding: 0.1rem 0.25rem;
+  border-radius: 3px;
+}
+
+/* Lightbox Modal */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.lightbox-container {
+  width: 100%;
+  max-width: 1180px;
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(6, 18, 28, 0.95);
+  border: 1px solid rgba(130, 209, 245, 0.3);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(4, 15, 24, 0.8);
+}
+
+.lightbox-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lightbox-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.lightbox-counter {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-indigo);
+  background: rgba(83, 98, 255, 0.2);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.lightbox-viewport {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1rem;
+  min-height: 400px;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: rgba(4, 20, 30, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all var(--duration-fast);
+}
+
+.lightbox-nav-btn:hover {
+  background: rgba(83, 98, 255, 0.6);
+  border-color: var(--accent-cyan);
+}
+
+.lightbox-nav-btn.prev-btn {
+  left: 1.5rem;
+}
+
+.lightbox-nav-btn.next-btn {
+  right: 1.5rem;
+}
+
+.lightbox-caption {
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: rgba(4, 15, 24, 0.8);
+}
+
+/* ==========================================================================
+   LIGHT MODE OVERRIDES FOR IMAGE CAROUSEL
+   ========================================================================== */
+[data-theme='light'] .carousel-stage {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 115, 135, 0.3) !important;
+  box-shadow:
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 32px rgba(0, 100, 120, 0.15) !important;
+}
+
+[data-theme='light'] .carousel-img-frame {
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f0f8fa 100%) !important;
+}
+
+[data-theme='light'] .carousel-title {
+  color: #03252a !important;
+}
+
+[data-theme='light'] .carousel-subtitle {
+  color: #0a4c56 !important;
+}
+
+[data-theme='light'] .carousel-counter-badge {
+  background: rgba(0, 115, 135, 0.12) !important;
+  border-color: rgba(0, 115, 135, 0.3) !important;
+  color: #007080 !important;
+}
+
+[data-theme='light'] .carousel-counter-badge .current-num {
+  color: #03252a !important;
+}
+
+[data-theme='light'] .carousel-caption-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 115, 135, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(0, 30, 40, 0.08) !important;
+}
+
+[data-theme='light'] .caption-title {
+  color: #03252a !important;
+}
+
+[data-theme='light'] .caption-description {
+  color: #0a4c56 !important;
+}
+
+[data-theme='light'] .carousel-thumb-btn {
+  border-color: rgba(0, 115, 135, 0.25) !important;
+  background: #ffffff !important;
+}
+
+[data-theme='light'] .carousel-thumb-btn.active {
+  border-color: #00bcd4 !important;
+  box-shadow: 0 0 14px rgba(0, 188, 212, 0.5) !important;
+}
+
+@media (max-width: 768px) {
+  .carousel-img-frame {
+    min-height: 240px;
+    max-height: 360px;
+  }
+
+  .carousel-nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .carousel-nav-btn.prev-btn {
+    left: 0.5rem;
+  }
+
+  .carousel-nav-btn.next-btn {
+    right: 0.5rem;
+  }
+}
