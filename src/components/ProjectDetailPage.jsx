@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   ArrowLeft, Calendar, CheckCircle2, Quote,
   ZoomIn, ChevronLeft, ChevronRight, FileText, ExternalLink,
-  Sparkles, Layers, Cpu, Star, Home
+  Layers, Cpu, Star, Home
 } from 'lucide-react';
 import VideoPlayer, { extractYouTubeId } from './VideoPlayer';
 import ImageCarousel from './ImageCarousel';
@@ -12,8 +12,7 @@ export default function ProjectDetailPage({
   project,
   projects = [],
   onSelectProject,
-  onBack,
-  onOpenHuskShowcase
+  onBack
 }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -129,22 +128,12 @@ export default function ProjectDetailPage({
 
           {/* Action CTAs */}
           <div className="detail-hero-actions">
-            {currentProject.id === 'husk-e' && onOpenHuskShowcase && (
-              <button
-                type="button"
-                onClick={onOpenHuskShowcase}
-                className="btn btn-frutiger-solar btn-md"
-              >
-                <Sparkles size={16} />
-                <span>Launch 1:1 Interactive Simulator</span>
-              </button>
-            )}
             {currentProject.id === 'husk-e' && (
               <a
                 href="/husk_e_deck.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-frutiger-outline btn-md"
+                className="btn btn-frutiger-solar btn-md"
               >
                 <FileText size={16} />
                 <span>View Hardware Deck (PDF)</span>
@@ -212,29 +201,7 @@ export default function ProjectDetailPage({
               </section>
             )}
 
-            {/* Interactive HUSK-E Prototype Launch Banner */}
-            {currentProject?.id === 'husk-e' && onOpenHuskShowcase && (
-              <section className="detail-sim-callout glass-panel">
-                <div className="sim-callout-text">
-                  <span className="pill-badge award">
-                    <Sparkles size={12} className="inline-icon" />
-                    <span>Live 1:1 Hardware Prototype</span>
-                  </span>
-                  <h4>Test the Physical AND Gate &amp; ESP32-S3 State Machine</h4>
-                  <p>
-                    Experience the complete student journey: dock the 2-player NFC magnetic wings, trigger the co-presence handshake, cycle through 5 behavioral scenarios, and test the tactile D-pad.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={onOpenHuskShowcase}
-                  className="btn btn-frutiger-solar btn-md"
-                >
-                  <Sparkles size={16} />
-                  <span>Launch 1:1 Simulator</span>
-                </button>
-              </section>
-            )}
+
 
             {/* How Might We & Jobs To Be Done */}
             {(currentProject.howMightWe || currentProject.jobsToBeDone) && (

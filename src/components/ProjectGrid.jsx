@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Layers, Award, Star, CheckCircle2, Sparkles } from 'lucide-react';
+import { ArrowRight, Layers, Award, Star, CheckCircle2 } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
 import { projects } from '../data/projects';
 
@@ -12,7 +12,7 @@ const categories = [
   'Web & UI'
 ];
 
-export default function ProjectGrid({ onSelectProject, onOpenHuskShowcase }) {
+export default function ProjectGrid({ onSelectProject }) {
   const [activeCategory, setActiveCategory] = useState('All');
 
   // Top 3 Work specifically curated for Design Recruiters
@@ -140,26 +140,11 @@ export default function ProjectGrid({ onSelectProject, onOpenHuskShowcase }) {
                   </div>
 
                   {/* Footer Action */}
-                  <div className="card-footer" style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <button className="card-action-btn top-card-btn" style={{ flex: 1 }}>
+                  <div className="card-footer">
+                    <button className="card-action-btn top-card-btn">
                       <span>View Case Study</span>
                       <ArrowRight size={16} />
                     </button>
-                    {project.id === 'husk-e' && onOpenHuskShowcase && (
-                      <button 
-                        type="button"
-                        className="btn btn-outline btn-sm"
-                        style={{ fontSize: '0.78rem', padding: '0.45rem 0.85rem' }}
-                        title="Launch 1:1 Interactive Device Simulator"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onOpenHuskShowcase();
-                        }}
-                      >
-                        <Sparkles size={13} />
-                        <span>Interactive Sim</span>
-                      </button>
-                    )}
                   </div>
                 </div>
               </article>

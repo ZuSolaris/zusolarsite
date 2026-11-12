@@ -5,7 +5,6 @@ export default function Navbar({
   theme,
   toggleTheme,
   onOpenDesignTokens,
-  onOpenHuskShowcase,
   selectedProject,
   onBackToHome
 }) {
@@ -59,7 +58,6 @@ export default function Navbar({
           ) : (
             <a href="#projects" className="nav-link nav-keycap">Case Studies</a>
           )}
-          <button onClick={onOpenHuskShowcase} className="nav-link nav-keycap">HUSK-E</button>
           <a
             href="#bio"
             className="nav-link nav-keycap"
@@ -130,7 +128,6 @@ export default function Navbar({
               Case Studies
             </a>
           )}
-          <button onClick={() => { onOpenHuskShowcase(); setMobileMenuOpen(false); }} className="mobile-link text-left">HUSK-E Showcase</button>
           <a
             href="#bio"
             onClick={(e) => { handleNavAnchorClick(e, '#bio'); setMobileMenuOpen(false); }}

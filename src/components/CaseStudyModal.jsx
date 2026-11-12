@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { X, Calendar, CheckCircle2, Quote, ArrowLeft, ArrowRight, ZoomIn, ChevronLeft, ChevronRight, FileText, ExternalLink, Sparkles } from 'lucide-react';
+import { X, Calendar, CheckCircle2, Quote, ArrowLeft, ArrowRight, ZoomIn, ChevronLeft, ChevronRight, FileText, ExternalLink } from 'lucide-react';
 import VideoPlayer, { extractYouTubeId } from './VideoPlayer';
 
-export default function CaseStudyModal({ project, projects = [], onSelectProject, onClose, onOpenHuskShowcase }) {
+export default function CaseStudyModal({ project, projects = [], onSelectProject, onClose }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   // Look up fresh project from projects array to prevent stale React state
@@ -143,46 +143,7 @@ export default function CaseStudyModal({ project, projects = [], onSelectProject
             </div>
           )}
 
-          {/* Interactive HUSK-E Prototype Launch Banner */}
-          {currentProject?.id === 'husk-e' && onOpenHuskShowcase && (
-            <div className="interactive-sim-callout glass-panel" style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1.25rem',
-              padding: '1.15rem 1.4rem',
-              margin: '0.75rem 0 1.25rem',
-              background: 'linear-gradient(135deg, rgba(83, 98, 255, 0.22) 0%, rgba(130, 209, 245, 0.16) 100%)',
-              border: '1.5px solid rgba(130, 209, 245, 0.45)',
-              borderRadius: 'var(--radius-lg)',
-              flexWrap: 'wrap'
-            }}>
-              <div>
-                <span className="pill-badge award" style={{ marginBottom: '0.35rem', fontSize: '0.72rem' }}>
-                  <Sparkles size={12} className="inline-icon" />
-                  <span>Interactive 1:1 Simulator</span>
-                </span>
-                <h4 style={{ margin: '0.3rem 0 0.2rem', fontSize: '1.05rem', color: '#fff' }}>
-                  Test the Physical AND Gate &amp; ESP32-S3 Logic
-                </h4>
-                <p style={{ margin: 0, fontSize: '0.84rem', color: 'rgba(255,255,255,0.85)' }}>
-                  Dock the 2-player NFC wings, cycle 5 behavioral scenarios, and test tactile D-pad responses.
-                </p>
-              </div>
-              <button 
-                type="button"
-                onClick={() => {
-                  onClose();
-                  onOpenHuskShowcase();
-                }}
-                className="btn btn-frutiger-solar btn-md"
-                style={{ flexShrink: 0 }}
-              >
-                <Sparkles size={16} />
-                <span>Launch Interactive Prototype</span>
-              </button>
-            </div>
-          )}
+
 
           {/* How Might We Callout */}
           {project.howMightWe && (
@@ -417,30 +378,15 @@ export default function CaseStudyModal({ project, projects = [], onSelectProject
 
           <div className="modal-footer-actions">
             {project.id === 'husk-e' && (
-              <>
-                {onOpenHuskShowcase && (
-                  <button 
-                    type="button"
-                    onClick={() => {
-                      onClose();
-                      onOpenHuskShowcase();
-                    }}
-                    className="btn btn-outline btn-sm"
-                  >
-                    <Sparkles size={14} />
-                    <span>Launch 1:1 Prototype</span>
-                  </button>
-                )}
-                <a 
-                  href="/husk_e_deck.pdf" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="btn btn-frutiger-solar btn-sm"
-                >
-                  <FileText size={15} />
-                  <span>View Hardware Deck (PDF)</span>
-                </a>
-              </>
+              <a 
+                href="/husk_e_deck.pdf" 
+                target="_blank" 
+                rel="noreferrer"
+                className="btn btn-frutiger-solar btn-sm"
+              >
+                <FileText size={15} />
+                <span>View Hardware Deck (PDF)</span>
+              </a>
             )}
             {project.id === 'melon' && (
               <a 

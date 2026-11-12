@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Sparkles, ArrowRight, X } from 'lucide-react';
+import { Sparkles, ArrowRight, FileText } from 'lucide-react';
 import FlowShaderCanvas from './components/FlowShaderCanvas';
 import UnderwaterShaderCanvas from './components/UnderwaterShaderCanvas';
 import Navbar from './components/Navbar';
@@ -9,7 +9,6 @@ import BioStory from './components/BioStory';
 import Footer from './components/Footer';
 import ProjectDetailPage from './components/ProjectDetailPage';
 import DesignTokensViewer from './components/DesignTokensViewer';
-import HuskEShowcase from './components/HuskEShowcase';
 import { projects } from './data/projects';
 import './App.css';
 
@@ -19,7 +18,6 @@ export default function App() {
   });
   const [selectedProject, setSelectedProject] = useState(null);
   const [designTokensOpen, setDesignTokensOpen] = useState(false);
-  const [huskShowcaseOpen, setHuskShowcaseOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -73,23 +71,22 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Escape key listener for the HUSK-E showcase modal & tokens viewer
+  // Escape key listener for tokens viewer
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        if (huskShowcaseOpen) setHuskShowcaseOpen(false);
-        else if (designTokensOpen) setDesignTokensOpen(false);
+      if (e.key === 'Escape' && designTokensOpen) {
+        setDesignTokensOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [huskShowcaseOpen, designTokensOpen]);
+  }, [designTokensOpen]);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  const isModalActive = Boolean(designTokensOpen || huskShowcaseOpen);
+  const isModalActive = Boolean(designTokensOpen);
 
   return (
     <div className="portfolio-app">
@@ -108,7 +105,6 @@ export default function App() {
         theme={theme}
         toggleTheme={toggleTheme}
         onOpenDesignTokens={() => setDesignTokensOpen(true)}
-        onOpenHuskShowcase={() => setHuskShowcaseOpen(true)}
         selectedProject={selectedProject}
         onBackToHome={handleBackToHome}
       />
@@ -121,7 +117,6 @@ export default function App() {
             projects={projects}
             onSelectProject={handleSelectProject}
             onBack={handleBackToHome}
-            onOpenHuskShowcase={() => setHuskShowcaseOpen(true)}
           />
         ) : (
           /* Portfolio Main Landing Page */
@@ -147,22 +142,24 @@ export default function App() {
                   </div>
                   <div className="husk-teaser-actions">
                     <button
-                      onClick={() => setHuskShowcaseOpen(true)}
-                      className="btn btn-frutiger-solar btn-md"
-                    >
-                      <Sparkles size={16} />
-                      <span>Launch 1:1 Simulator</span>
-                    </button>
-                    <button
                       onClick={() => {
                         const huskE = projects.find(p => p.id === 'husk-e');
                         if (huskE) handleSelectProject(huskE);
                       }}
-                      className="btn btn-frutiger-outline btn-md"
+                      className="btn btn-frutiger-solar btn-md"
                     >
                       <span>View Case Study</span>
                       <ArrowRight size={16} />
                     </button>
+                    <a
+                      href="/husk_e_deck.pdf"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-frutiger-outline btn-md"
+                    >
+                      <FileText size={16} />
+                      <span>Hardware Deck (PDF)</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -171,7 +168,6 @@ export default function App() {
             {/* Featured Case Studies Grid with Category Filtering */}
             <ProjectGrid
               onSelectProject={handleSelectProject}
-              onOpenHuskShowcase={() => setHuskShowcaseOpen(true)}
             />
 
             {/* Bio, Military Experience, Neurodiversity, and Skills Matrix */}
@@ -188,49 +184,6 @@ export default function App() {
         isOpen={designTokensOpen}
         onClose={() => setDesignTokensOpen(false)}
       />
-
-      {/* 1:1 Interactive HUSK-E Showcase Fullscreen Modal Overlay */}
-      {huskShowcaseOpen && (
-        <div
-          className="modal-overlay"
-          onClick={() => setHuskShowcaseOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-label="HUSK-E Interactive Showcase"
-        >
-          <div
-            className="modal-container glass-panel husk-simulator-modal"
-            style={{ maxWidth: '1180px', maxHeight: '92vh', width: '96%' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <header className="modal-sticky-header">
-              <div className="modal-header-meta">
-                <span className="pill-badge subtle">Hardware &amp; AI IxD</span>
-                <span className="pill-badge award">
-                  <Sparkles size={13} className="inline-icon" />
-                  <span>1:1 Interactive Simulator</span>
-                </span>
-              </div>
-              <button
-                onClick={() => setHuskShowcaseOpen(false)}
-                className="modal-close-btn"
-                aria-label="Close Showcase"
-              >
-                <X size={20} />
-              </button>
-            </header>
-            <div className="modal-body-scroll" style={{ padding: '0 0 2rem' }}>
-              <HuskEShowcase
-                onOpenCaseStudy={() => {
-                  setHuskShowcaseOpen(false);
-                  const huskE = projects.find(p => p.id === 'husk-e');
-                  if (huskE) handleSelectProject(huskE);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
