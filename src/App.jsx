@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Sparkles, ArrowRight, FileText } from 'lucide-react';
 import FlowShaderCanvas from './components/FlowShaderCanvas';
 import UnderwaterShaderCanvas from './components/UnderwaterShaderCanvas';
 import Navbar from './components/Navbar';
@@ -124,46 +123,6 @@ export default function App() {
             {/* Hero Section with Zoe's Story & Accolades */}
             <Hero />
 
-            {/* Spotlight Teaser: HUSK-E Interactive Companion */}
-            <section className="husk-teaser-strip">
-              <div className="container">
-                <div className="husk-teaser-card glass-panel">
-                  <div className="husk-teaser-left">
-                    <div className="pill-badge award">
-                      <Sparkles size={13} className="inline-icon" />
-                      <span>Interactive Systems Spotlight</span>
-                    </div>
-                    <h3 className="husk-teaser-title">
-                      HUSK-E <span className="title-divider">•</span> <span className="gradient-text">The Physical AND Gate</span>
-                    </h3>
-                    <p className="husk-teaser-desc">
-                      Handheld adaptive companion for UW freshmen. Designed around the ESP32 microcontroller, zero-app NFC pairing, and a 6-phase friendship state machine.
-                    </p>
-                  </div>
-                  <div className="husk-teaser-actions">
-                    <button
-                      onClick={() => {
-                        const huskE = projects.find(p => p.id === 'husk-e');
-                        if (huskE) handleSelectProject(huskE);
-                      }}
-                      className="btn btn-frutiger-solar btn-md"
-                    >
-                      <span>View Case Study</span>
-                      <ArrowRight size={16} />
-                    </button>
-                    <a
-                      href="/husk_e_deck.pdf"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn btn-frutiger-outline btn-md"
-                    >
-                      <FileText size={16} />
-                      <span>Hardware Deck (PDF)</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </section>
 
             {/* Featured Case Studies Grid with Category Filtering */}
             <ProjectGrid
